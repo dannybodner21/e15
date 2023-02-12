@@ -3,7 +3,7 @@
 session_start();
 
 // Get input string
-$inputString = $_POST['userInput'];
+$inputStringOriginal = $_POST['userInput'];
 
 // #1 IS PALINDROME:
 
@@ -11,22 +11,22 @@ $inputString = $_POST['userInput'];
 $pattern = '/[^a-z]/';
 
 // Turn string into lowercase and remove non-alphabet characters
-$inputString = strtolower(preg_replace($pattern, '', $inputString));
+$inputStringCleaned = preg_replace($pattern, '', strtolower($inputStringOriginal));
 
 // Reverse the string
-$reverse = strrev($inputString);
+$reverse = strrev($inputStringCleaned);
 
 // Check palindrome
-$isPalindrome = $reverse == $inputString;
+$isPalindrome = $reverse == $inputStringCleaned;
 
 // #2 VOWEL COUNT:
 
 // Count vowels (aeiou)
-$aCount = substr_count($inputString,'a');
-$eCount = substr_count($inputString,'e');
-$iCount = substr_count($inputString,'i');
-$oCount = substr_count($inputString,'o');
-$uCount = substr_count($inputString,'u');
+$aCount = substr_count($inputStringCleaned,'a');
+$eCount = substr_count($inputStringCleaned,'e');
+$iCount = substr_count($inputStringCleaned,'i');
+$oCount = substr_count($inputStringCleaned,'o');
+$uCount = substr_count($inputStringCleaned,'u');
 
 // Get the total number of vowels
 $vowelCount = $aCount + $eCount + $iCount + $oCount + $uCount;
@@ -34,10 +34,10 @@ $vowelCount = $aCount + $eCount + $iCount + $oCount + $uCount;
 // #3 LETTER SHIFT:
 
 // Turn string into array of characters
-$newString = str_split($inputString);
+$newString = str_split($inputStringOriginal);
 
-// Create an alphabet key to use
-$alphabet = [
+// Create a lowercase alphabet key to use
+$alphabetLowercase = [
     'a' => 1,
     'b' => 2,
     'c' => 3,
@@ -66,28 +66,74 @@ $alphabet = [
     'z' => 26
 ];
 
+// Create an uppercase alphabet key to use
+$alphabetUppercase = [
+    'A' => 1,
+    'B' => 2,
+    'C' => 3,
+    'D' => 4,
+    'E' => 5,
+    'F' => 6,
+    'G' => 7,
+    'H' => 8,
+    'I' => 9,
+    'J' => 10,
+    'K' => 11,
+    'L' => 12,
+    'M' => 13,
+    'N' => 14,
+    'O' => 15,
+    'P' => 16,
+    'Q' => 17,
+    'R' => 18,
+    'S' => 19,
+    'T' => 20,
+    'U' => 21,
+    'V' => 22,
+    'W' => 23,
+    'X' => 24,
+    'Y' => 25,
+    'Z' => 26
+];
+
 // Function to take an array of string characters and shift it a specific amount
 // Returns new array of shifted characters
-function shiftLetters($alphabet, $myArray, $shiftSize) {
+function shiftLetters($alphabetLowercase, $alphabetUppercase, $myArray, $shiftSize) {
 
     // Loop through the char array
     $shiftedArray = [];
 
     for ($i = 0; $i < count($myArray); $i++) {
-        
-        // Find the number of given char
-        $myNumber = $alphabet[$myArray[$i]];
 
-        // Shift the number
-        $myNumber = $myNumber + $shiftSize;
+        // Check if char is in the alphabet or not
+        if (!array_key_exists($myArray[$i], $alphabetLowercase) && 
+            !array_key_exists($myArray[$i], $alphabetUppercase)) {
+                // Not in alphabet, save the special character
+                $resultChar = $myArray[$i];
+        } else {
+            // Char is in the alphabet
 
-        // Make sure number is in range
-        if ($myNumber > 26) {
-            $myNumber = $myNumber % 26;
+            // Get either lowercase or uppercase alphabet
+            if (array_key_exists($myArray[$i], $alphabetLowercase)) {
+                $myAlphabet = $alphabetLowercase;
+            } elseif (array_key_exists($myArray[$i], $alphabetUppercase)) {
+                $myAlphabet = $alphabetUppercase;
+            }
+
+            // Find the number of given char
+            $myNumber = $myAlphabet[$myArray[$i]];
+
+            // Shift the number
+            $myNumber = $myNumber + $shiftSize;
+
+            // Make sure number is in range
+            if ($myNumber > 26) {
+                $myNumber = $myNumber % 26;
+            }
+
+            // Shift the char
+            $resultChar = array_search($myNumber, $myAlphabet);
         }
-
-        // Shift the char
-        $resultChar = array_search($myNumber, $alphabet);
 
         // Add to new array
         $shiftedArray[$i] = $resultChar;
@@ -97,7 +143,7 @@ function shiftLetters($alphabet, $myArray, $shiftSize) {
 }
 
 // Do the shift
-$shiftedString = shiftLetters($alphabet, $newString, 1);
+$shiftedString = shiftLetters($alphabetLowercase, $alphabetUppercase, $newString, 1);
 
 // #4 CAESAR CIPHER - (move the letters over a specified number of characters):
 
@@ -105,11 +151,11 @@ $shiftedString = shiftLetters($alphabet, $newString, 1);
 $numberToShift = rand(1,100);
 
 // Do the shift
-$caesarCipherString = shiftLetters($alphabet, $newString, $numberToShift);
+$caesarCipherString = shiftLetters($alphabetLowercase, $alphabetUppercase, $newString, $numberToShift);
 
 // Save variables to session
 $_SESSION['results'] = [
-    'inputString' => $inputString,
+    'inputString' => $inputStringOriginal,
     'isPalindrome' => $isPalindrome,
     'vowelCount' => $vowelCount,
     'shiftedString' => implode($shiftedString),
