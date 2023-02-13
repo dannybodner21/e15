@@ -1,5 +1,6 @@
 <?php
 
+// Start session
 session_start();
 
 // Get input string
@@ -109,6 +110,7 @@ function shiftLetters($alphabetLowercase, $alphabetUppercase, $myArray, $shiftSi
         if (!array_key_exists($myArray[$i], $alphabetLowercase) && 
             !array_key_exists($myArray[$i], $alphabetUppercase)) {
                 // Not in alphabet, save the special character
+                
                 $resultChar = $myArray[$i];
         } else {
             // Char is in the alphabet
@@ -148,7 +150,7 @@ $shiftedString = shiftLetters($alphabetLowercase, $alphabetUppercase, $newString
 // #4 CAESAR CIPHER - (move the letters over a specified number of characters):
 
 // Get random number to shift characters
-$numberToShift = rand(1,100);
+$numberToShift = rand(1,26);
 
 // Do the shift
 $caesarCipherString = shiftLetters($alphabetLowercase, $alphabetUppercase, $newString, $numberToShift);

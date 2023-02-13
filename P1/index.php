@@ -1,8 +1,11 @@
 <?php
 
-// PROJECT 1:
+// PROJECT 1: STRING PROCESSORS
+// Details: Take a user input string and perform various modifications.
+// By: Daniel Bodner
+// Date: 13FEB2023
 
-// Create session and get info if exists
+// Create session and get info if it exists
 session_start();
 
 if (isset($_SESSION['results'])) {
