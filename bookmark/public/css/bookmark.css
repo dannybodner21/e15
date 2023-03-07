@@ -1,0 +1,11 @@
+#logo {
+    /*
+    Actual logo width is 725;
+    We're displaying half size so it looks sharp;
+    */
+    width: 362px;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}

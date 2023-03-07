@@ -1,14 +1,13 @@
-{% load static %}
+<?php
 
-<!DOCTYPE html>
-<html lang="en">
+require 'Student.php';
 
-<head>
-    <title>Practice</title>
-</head>
+$student = new Student(99);
 
-<body>
-    <h3>This is practice...</h3>
-</body>
+$id = $student->getId();
 
-</html>
+
+var_dump($id);
+
+
+require  'index-view.php';
