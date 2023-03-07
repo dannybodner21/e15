@@ -16,6 +16,6 @@
             Details about this book will go here...
         </p>
     @else
-        Book not found<a href-'/books'>View all books</a>
+        Book not found<a href='/books'>View all books</a>
     @endif
 @endsection
