@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
-class PageController extends Controller {
-
-    public function welcome() {
-        
-        return view('pages/welcome');
+class PageController extends Controller
+{
+    public function welcome()
+    {
+        # If there is data stored in the session as the results of doing a search
+        # that data will be extracted from the session and passed to the view
+        # to display the results
+        return view('pages/welcome', [
+            'searchResults' => session('searchResults', null)
+        ]);
     }
 
-    public function contact() {
+    public function contact()
+    {
         return view('pages/contact');
     }
-
 }
