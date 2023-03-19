@@ -21,6 +21,8 @@ public function calculate(Request $request) {
 
     // Validation for all input fields based on how many cryptocurrencies is selected
     $amountOfCryptos = $request->input('amountOfCryptos', '1');
+
+    // 1 or more
     if ($amountOfCryptos >= 1) {
         $request->validate([
             'cryptoNameOne' => 'required|alpha:ascii',
@@ -28,6 +30,8 @@ public function calculate(Request $request) {
             'cryptoPriceOne' => 'required|numeric',
         ]);
     }
+
+    // 2 or more
     if ($amountOfCryptos >= 2) {
         $request->validate([
             'cryptoNameTwo' => 'required|alpha:ascii',
@@ -35,6 +39,8 @@ public function calculate(Request $request) {
             'cryptoPriceTwo' => 'required|numeric',
         ]);
     }
+
+    // 3
     if ($amountOfCryptos == 3) {
         $request->validate([
             'cryptoNameThree' => 'required|alpha:ascii',
@@ -59,14 +65,16 @@ public function calculate(Request $request) {
     $cryptoValueTwo = $cryptoQuantityTwo*$cryptoPriceTwo;
     $cryptoValueThree = $cryptoQuantityThree*$cryptoPriceThree;
 
+    // Create sentences
     $cryptoOneSentence = strval($cryptoQuantityOne).' '.$cryptoNameOne.' at a price of $'.strval($cryptoPriceOne).' is worth $'.strval($cryptoValueOne);
     $cryptoTwoSentence = strval($cryptoQuantityTwo).' '.$cryptoNameTwo.' at a price of $'.strval($cryptoPriceTwo).' is worth $'.strval($cryptoValueTwo);
     $cryptoThreeSentence = strval($cryptoQuantityThree).' '.$cryptoNameThree.' at a price of $'.strval($cryptoPriceThree).' is worth $'.strval($cryptoValueThree);
 
-    // total worth of all user cryptocurrencies
+    // Total worth of all user cryptocurrencies
     $totalCryptoWorth = $cryptoValueOne + $cryptoValueTwo + $cryptoValueThree;
     $totalCryptoWorthSentence = 'The total projected worth of your portfolio is: $'.strval($totalCryptoWorth);
 
+    // Redirect
     return redirect('/')->with([
         'totalCryptoWorthSentence' => $totalCryptoWorthSentence,
         'cryptoOneSentence' => $cryptoOneSentence,

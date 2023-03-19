@@ -12,9 +12,9 @@
 @section('content')
 
     <section>
-
+        <!-- Create form -->
         <form class='calculateForm' method='GET' action='/calculate'>
-
+            <!-- Amount of cryptocurrencies -->
             <div class='sectionHeader'>
                 <label for='amountOfCryptos'>
                     How many cryptocurrencies do you own:
@@ -26,7 +26,6 @@
                 </select>
             </div>
             <hr class='customHRTwo'>
-
 
             <div class='container containerAdditional' id='formContainer'>
                 <div class='row'>
@@ -119,7 +118,7 @@
         </form>
     </section>
     <section>
-        <!-- show any errors -->
+        <!-- Show any errors -->
         <div class='container containerAdditional'>
             <div class='row'>
                 <div class='col'>
@@ -142,7 +141,7 @@
 
         <hr class='customHRTwo'>
 
-        <!-- show results -->
+        <!-- Show results -->
         <div class='container containerAdditional'>
             <div class='row'>
                 <div class='col'>
