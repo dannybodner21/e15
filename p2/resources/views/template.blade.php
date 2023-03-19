@@ -13,7 +13,6 @@
 <body>
 
     <header>
-        <!--<a href='/'><img src='/images/bookmark-logo@2x.png' id='logo' alt='Bookmark Logo'></a>-->
         <h2><strong>Portfolio Projector</strong></h2>
         <p class='subtext'>Calculate your cryptocurrency portfolio's future worth based on your own price projections
         </p>
@@ -25,7 +24,7 @@
     </section>
 
     <footer>
-        Portfolio Projector
+        &copy; Portfolio Projector, Inc.
     </footer>
 
 </body>

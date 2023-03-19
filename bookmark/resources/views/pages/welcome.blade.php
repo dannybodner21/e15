@@ -29,29 +29,19 @@
                 Search type:
             </label>
 
-            <input 
-                type='radio' 
-                name='searchType' 
-                id='title' 
-                value='title'
-                {{ (old('searchType') == 'title') ? 'checked' : '' }}
-            >
+            <input type='radio' name='searchType' id='title' value='title'
+                {{ old('searchType') == 'title' ? 'checked' : '' }}>
             <label for='title'> Title</label>
-            
-            <input 
-                type='radio' 
-                name='searchType' 
-                id='author' 
-                value='author'
-                {{ (old('searchType') == 'author') ? 'checked' : '' }}
-            >
+
+            <input type='radio' name='searchType' id='author' value='author'
+                {{ old('searchType') == 'author' ? 'checked' : '' }}>
             <label for='author'> Author</label>
-            
+
         </fieldset>
 
         <button type='submit' class='btn btn-primary'>Search</button>
 
-        @if(count($errors) > 0)
+        @if (count($errors) > 0)
             <ul class='alert alert-danger'>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -61,24 +51,24 @@
 
     </form>
 
-    @if(!is_null($searchResults))
-        @if(count($searchResults) == 0)
+    @if (!is_null($searchResults))
+        @if (count($searchResults) == 0)
             <div class='results alert alert-warning'>
                 No results found.
             </div>
         @else
             <div class='results alert alert-primary'>
 
-            {{ count($searchResults) }} 
-            {{ Str::plural('Result', count($searchResults)) }}:
+                {{ count($searchResults) }}
+                {{ Str::plural('Result', count($searchResults)) }}:
 
                 <ul class='clean-list'>
-                    @foreach($searchResults as $slug => $book)
-                    <li><a href='/books/{{ $slug }}'> {{ $book['title'] }}</a></li>
+                    @foreach ($searchResults as $slug => $book)
+                        <li><a href='/books/{{ $slug }}'> {{ $book['title'] }}</a></li>
                     @endforeach
                 </ul>
             </div>
         @endif
     @endif
-    
+
 @endsection

@@ -41,7 +41,7 @@
                                 Name of your cryptocurrency:
                             </label>
                             <br>
-                            <input type='text' name='cryptoNameOne' value='{{ old('cryptoNameOne') }}'>
+                            <textarea name='cryptoNameOne'>{{ old('cryptoNameOne') }}</textarea>
                             <hr>
                             <label for='cryptoQuantityOne'>
                                 Quantity:
@@ -68,7 +68,7 @@
                                 Name of your cryptocurrency:
                             </label>
                             <br>
-                            <input type='text' name='cryptoNameTwo' value='{{ old('cryptoNameTwo') }}'>
+                            <textarea name='cryptoNameTwo'>{{ old('cryptoNameTwo') }}</textarea>
                             <hr>
                             <label for='cryptoQuantityTwo'>
                                 Quantity:
@@ -95,7 +95,7 @@
                                 Name of your cryptocurrency:
                             </label>
                             <br>
-                            <input type='text' name='cryptoNameThree' value='{{ old('cryptoNameThree') }}'>
+                            <textarea name='cryptoNameThree'>{{ old('cryptoNameThree') }}</textarea>
                             <hr>
                             <label for='cryptoQuantityThree'>
                                 Quantity:

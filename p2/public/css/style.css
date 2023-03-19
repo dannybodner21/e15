@@ -25,6 +25,24 @@ footer {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+textarea,
+input {
+    border: solid 1px rgb(209, 209, 209);
+    height: 30px;
+    padding-left: 10px;
+    width: 200px;
+    resize: none;
+    border-radius: 6px;
+}
+
+select {
+    border: solid 1px rgb(209, 209, 209);
+    height: 30px;
+    padding-left: 10px;
+    width: 50px;
+    border-radius: 6px;
+}
+
 .containerAdditional {
     text-align: center;
     max-width: 50%;
