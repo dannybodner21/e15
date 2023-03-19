@@ -1,0 +1,135 @@
+html {
+    font-size: 62.5%;
+    color: #111;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+    font-size: 1.4rem;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.containerAdditional {
+    text-align: center;
+    max-width: 50%;
+}
+
+.textLeft {
+    text-align: left;
+}
+
+.listItem {
+    list-style: none;
+    color: rgb(216, 112, 112);
+}
+
+.sentence {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.errorDiv,
+.resultsDiv {
+    text-align: center;
+    border-radius: 12px;
+    border: 2px solid palevioletred;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.resultsDiv {
+    border: 2px solid rgb(84, 192, 84);
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+.subtext {
+    font-style: italic;
+    font-size: 14px;
+}
+
+.sectionHeader {
+    text-align: center;
+    padding-top: 25px;
+}
+
+.calculateForm {
+    width: 100%;
+}
+
+.formDiv {
+    background-color: white;
+    border-radius: 12px;
+    border: 2px solid palegreen;
+    margin: 20px;
+    padding-bottom: 10px;
+}
+
+.cryptoHeader {
+    background-color: palegreen;
+    padding-top: 15px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.errorHeader,
+.resultsHeader {
+    background-color: rgb(216, 112, 112);
+    padding-top: 15px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.resultsHeader {
+    background-color: rgb(84, 192, 84);
+}
+
+.buttonDiv {
+    text-align: center;
+}
+
+.calculateButton {
+    border-radius: 20px;
+    background-color: palegreen;
+    padding: 6px 25px 6px 25px;
+    margin: 20px;
+    border: none;
+}
+
+.calculateButton:hover {
+    cursor: pointer;
+    background-color: rgb(84, 192, 84);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.customHR,
+.customHRTwo {
+    background-color: palegreen;
+    height: 1px;
+    border: none;
+    margin-top: 25px;
+}
+
+.customHRTwo {
+    width: 75%;
+    margin-bottom: 0px;
+}
+
+.results {
+    text-align: center;
+
+}
