@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\PracticeController;
+
+Route::any('/practice/{n?}', [PracticeController::class, 'index']);
 
 /**
  * Misc
