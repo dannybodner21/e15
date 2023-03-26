@@ -2,6 +2,8 @@
 
 return [
 
+    'contact_email' => 'danny@dontemailme.com',
+
     /*
     |--------------------------------------------------------------------------
     | Default Mailer

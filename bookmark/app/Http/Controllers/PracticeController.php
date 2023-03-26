@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PracticeController extends Controller
 {
@@ -13,6 +14,11 @@ class PracticeController extends Controller
     public function practice1()
     {
         dump('This is the first example.');
+    }
+
+    public function practice2()
+    {
+       dump(DB::select('SHOW DATABASES;'));
     }
 
     /**
