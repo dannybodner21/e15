@@ -1,0 +1,285 @@
+/*----------------------------------------------------
+Main display
+-----------------------------------------------------*/
+html {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+header {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#logo {
+    width: 316px;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    background-color: rgb(13, 13, 13);
+    padding: 20px;
+    border-top: 0.5px solid #ff6f00;
+    color: white;
+}
+
+/*----------------------------------------------------
+Nav bar
+-----------------------------------------------------*/
+nav {
+    border-bottom: 0.5px solid rgb(181, 181, 181);
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 5px 4px;
+    font-size: 15px;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+    padding: 10px;
+}
+
+nav li,
+nav button {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: rgb(0, 0, 0);
+}
+
+nav ul li a:link {
+    text-decoration: none;
+}
+
+nav ul li a:hover,
+nav ul li button:hover {
+    color: #ff4d01;
+}
+
+/*----------------------------------------------------
+Typography
+-----------------------------------------------------*/
+a.active:link,
+a.active:visited,
+a.active:active,
+a.active:hover,
+a {
+    color: #ff6f00;
+}
+
+p {
+    line-height: 1.5;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3.0rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 2.0rem;
+}
+
+/*----------------------------------------------------
+Forms
+-----------------------------------------------------*/
+.mainFormSection {
+    margin-top: 25px;
+    transition: all 1.0s;
+}
+
+.dailyWorkoutFormDiv {
+    margin: auto;
+    background-color: rgb(244, 244, 244);
+    border-radius: 10px;
+    border: none;
+    /*box-shadow: rgba(0, 0, 0, 0.0) 3px 3px 7px 5px;*/
+    margin: 35px;
+    padding: 50px;
+    width: 60%;
+}
+
+.XButton {
+    border: none;
+    background-color: black;
+    color: white;
+    border-radius: 13px;
+    width: 26px;
+    height: 26px;
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.formButton,
+.formButtonTwo {
+    background: rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 10px 15px 10px 15px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    border: none;
+    width: 100%;
+    color: white;
+}
+
+.formButtonTwo {
+    width: 50%;
+}
+
+.formButtonDiv {
+    text-align: center;
+}
+
+.loginForm {}
+
+input[type=text],
+input[type=email],
+input[type=password],
+textarea,
+select {
+    display: block;
+    width: 100%;
+    font-size: 13px;
+    padding: 6px;
+    font-family: Consolas, Courier, monospace;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    color: rgb(22, 22, 22);
+    border-radius: 5px;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+    display: inline;
+}
+
+input[type='checkbox']+label,
+input[type='radio']+label {
+    display: inline;
+    font-weight: normal;
+}
+
+.formLabel {
+    padding-top: 10px;
+    font-size: 13px;
+}
+
+/*----------------------------------------------------
+Form Results
+-----------------------------------------------------*/
+.results {
+    width: 60%;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: white;
+    margin-top: 25px;
+}
+
+.indentedText {
+    padding-left: 15px;
+    font-size: 13px;
+}
+
+.indentedTextTwo {
+    padding-left: 40px;
+    font-size: 11px;
+}
+
+.resultButton {
+    width: 90%;
+    background-color: black;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+}
+
+/*----------------------------------------------------
+Table
+-----------------------------------------------------*/
+.workoutsTable {
+    margin: auto;
+    width: 85%;
+    background-color: rgb(255, 255, 255);
+    margin-top: 20px;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 10px;
+}
+
+.tableHeader {
+    border-radius: 10px;
+    background-color: rgb(226, 226, 226);
+}
+
+td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(226, 226, 226);
+}
+
+.headerItem {
+    padding: 15px;
+}
+
+/*----------------------------------------------------
+Other
+-----------------------------------------------------*/
+.customHR {
+    background-color: rgb(73, 73, 73);
+}
+
+/*----------------------------------------------------
+Login
+-----------------------------------------------------*/
+.loginBackground {
+    background: rgb(11, 11, 11);
+    background: linear-gradient(31deg, rgba(11, 11, 11, 1) 15%, rgba(153, 49, 3, 1) 42%, rgba(208, 99, 0, 1) 50%, rgba(14, 14, 14, 1) 92%);
+    background: rgb(255, 115, 17);
+    background: radial-gradient(circle, rgba(255, 115, 17, 1) 0%, rgba(124, 30, 30, 1) 100%);
+}
+
+.loginDiv {
+    background-color: rgb(20, 20, 20);
+    border-radius: 10px;
+    padding: 25px;
+    margin-top: 100px;
+    border: 1px solid rgb(0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.4) 4px 4px 9px 7px;
+    color: rgb(246, 246, 246);
+    width: 50%;
+}
+
+.header {
+    text-align: center;
+    padding: 10px;
+}
+
+.subtext {
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+}
