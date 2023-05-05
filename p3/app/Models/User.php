@@ -41,4 +41,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function workouts()
+    {
+        # User has many Workouts
+        # Define a one-to-many relationship.
+        return $this->hasMany('App\Models\Workout');
+    }
 }

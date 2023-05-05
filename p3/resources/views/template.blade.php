@@ -16,7 +16,7 @@
         <nav>
             <ul>
                 <!-- ...Other nav links here... -->
-                <li>P3</li>
+                <li style='font-size:30px;'><a href='/'>P3</a></li>
 
                 <li>
                     @if (!Auth::user())
@@ -28,8 +28,6 @@
                         </form>
                     @endif
                 </li>
-                <li>Two</li>
-                <li>Three</li>
             </ul>
         </nav>
     </header>
@@ -38,7 +36,8 @@
         @yield('content')
     </section>
 
-    <footer>
+    <footer style='padding:40px;'>
+        <hr>
         &copy; P3, Inc.
     </footer>
 

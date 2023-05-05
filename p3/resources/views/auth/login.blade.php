@@ -14,10 +14,9 @@
     <div class='container'>
         <div class='d-flex align-items-center justify-content-center'>
             <div class='loginDiv'>
-                <h3 class='header'>P3</h3>
-                <h6 class='header'>Login</h6>
+                <h6 class='header' style='padding-bottom:0px;'>Login</h6>
                 <hr class='customHR'>
-                <form class='loginForm' method='POST' action='/login'>
+                <form method='POST' action='/login'>
 
                     {{ csrf_field() }}
 
@@ -34,7 +33,7 @@
                     </label>
                     <br>
                     <div class='formButtonDiv'>
-                        <button class='formButton' type='submit'>Login</button>
+                        <button class='formButton custom-btn btn-5' type='submit'>Login</button>
                     </div>
 
                 </form>

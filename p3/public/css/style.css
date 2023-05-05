@@ -27,22 +27,21 @@ body {
 footer {
     margin-top: auto;
     text-align: center;
-    background-color: rgb(13, 13, 13);
+    background-color: white;
     padding: 20px;
-    border-top: 0.5px solid #ff6f00;
-    color: white;
+    color: black;
 }
 
 /*----------------------------------------------------
 Nav bar
 -----------------------------------------------------*/
 nav {
-    border-bottom: 0.5px solid rgb(181, 181, 181);
     padding: 15px;
     margin-bottom: 20px;
     margin-top: 0px;
     box-shadow: rgba(0, 0, 0, 0.15) 2px 2px 5px 4px;
     font-size: 15px;
+    text-align: left;
 }
 
 nav ul {
@@ -59,7 +58,6 @@ nav ul li {
 nav li,
 nav button {
     font-weight: bold;
-    text-transform: uppercase;
     color: rgb(0, 0, 0);
 }
 
@@ -72,6 +70,12 @@ nav ul li button:hover {
     color: #ff4d01;
 }
 
+.customTableRow:hover {
+    background: #f4f4f4;
+    outline: none;
+    cursor: pointer;
+}
+
 /*----------------------------------------------------
 Typography
 -----------------------------------------------------*/
@@ -80,7 +84,7 @@ a.active:visited,
 a.active:active,
 a.active:hover,
 a {
-    color: #ff6f00;
+    color: #000000;
 }
 
 p {
@@ -106,17 +110,18 @@ Forms
 .mainFormSection {
     margin-top: 25px;
     transition: all 1.0s;
+    margin: auto;
+    width: 60%;
 }
 
 .dailyWorkoutFormDiv {
-    margin: auto;
+    /*margin: auto;*/
     background-color: rgb(244, 244, 244);
     border-radius: 10px;
     border: none;
     /*box-shadow: rgba(0, 0, 0, 0.0) 3px 3px 7px 5px;*/
     margin: 35px;
     padding: 50px;
-    width: 60%;
 }
 
 .XButton {
@@ -136,7 +141,7 @@ Forms
 .formButton,
 .formButtonTwo {
     background: rgb(0, 0, 0);
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     padding: 10px 15px 10px 15px;
     margin-top: 40px;
     margin-bottom: 10px;
@@ -153,8 +158,6 @@ Forms
     text-align: center;
 }
 
-.loginForm {}
-
 input[type=text],
 input[type=email],
 input[type=password],
@@ -166,9 +169,9 @@ select {
     padding: 6px;
     font-family: Consolas, Courier, monospace;
     border: none;
+    border-bottom: 1px solid black;
     background-color: rgb(255, 255, 255);
     color: rgb(22, 22, 22);
-    border-radius: 5px;
 }
 
 input[type='checkbox'],
@@ -213,7 +216,6 @@ Form Results
     width: 90%;
     background-color: black;
     border: none;
-    border-radius: 10px;
     color: white;
     padding: 10px;
 }
@@ -256,20 +258,15 @@ Other
 Login
 -----------------------------------------------------*/
 .loginBackground {
-    background: rgb(11, 11, 11);
-    background: linear-gradient(31deg, rgba(11, 11, 11, 1) 15%, rgba(153, 49, 3, 1) 42%, rgba(208, 99, 0, 1) 50%, rgba(14, 14, 14, 1) 92%);
-    background: rgb(255, 115, 17);
-    background: radial-gradient(circle, rgba(255, 115, 17, 1) 0%, rgba(124, 30, 30, 1) 100%);
+    background-color: white;
 }
 
 .loginDiv {
-    background-color: rgb(20, 20, 20);
     border-radius: 10px;
     padding: 25px;
     margin-top: 100px;
-    border: 1px solid rgb(0, 0, 0);
-    box-shadow: rgba(0, 0, 0, 0.4) 4px 4px 9px 7px;
-    color: rgb(246, 246, 246);
+    /*box-shadow: rgba(0, 0, 0, 0.4) 4px 4px 9px 7px;*/
+    color: rgb(0, 0, 0);
     width: 50%;
 }
 
@@ -282,4 +279,59 @@ Login
     margin-top: 10px;
     font-size: 12px;
     text-align: center;
+}
+
+
+/* buttons */
+.customButton {
+    height: 40px;
+    padding: 10px 25px;
+    border: 1px solid #000;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+}
+
+.customButton:hover {
+    background: transparent;
+    color: #000;
+    box-shadow:
+        -7px -7px 20px 0px #fff9,
+        -4px -4px 5px 0px #fff9,
+        7px 7px 20px 0px #0002,
+        4px 4px 5px 0px #0001;
+}
+
+.customButton:before,
+.customButton:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #000;
+    transition: 400ms ease all;
+}
+
+.customButton:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+}
+
+.customButton:hover:before,
+.customButton:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
 }
