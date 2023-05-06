@@ -26,7 +26,7 @@ class ExercisesTableSeeder extends Seeder {
     $this->addTricepsExercises();
 }
 
-    // 8 exercises so far
+    // 13 chest exercises
     private function addChestExercises() {
         // barbell bench press
         $exercise = new Exercise();
@@ -46,11 +46,11 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->set_count = 5;
         $exercise->rep_count = 8;
         $exercise->save();
-        // barbell incline bench press
+        // incline barbell bench press
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Barbell incline bench press';
+        $exercise->name = 'Incline barbell bench press';
         $exercise->body_part = 'Chest';
         $exercise->set_count = 5;
         $exercise->rep_count = 8;
@@ -59,7 +59,7 @@ class ExercisesTableSeeder extends Seeder {
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Dumbbell incline bench press';
+        $exercise->name = 'Incline dumbbell bench press';
         $exercise->body_part = 'Chest';
         $exercise->set_count = 5;
         $exercise->rep_count = 8;
@@ -68,7 +68,7 @@ class ExercisesTableSeeder extends Seeder {
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Dumbbell flies press';
+        $exercise->name = 'Dumbbell flies';
         $exercise->body_part = 'Chest';
         $exercise->set_count = 4;
         $exercise->rep_count = 10;
@@ -82,11 +82,11 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->set_count = 4;
         $exercise->rep_count = 10;
         $exercise->save();
-        // cable flies
+        // standing cable flies
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Cable flies';
+        $exercise->name = 'Standing cable flies';
         $exercise->body_part = 'Chest';
         $exercise->set_count = 4;
         $exercise->rep_count = 12;
@@ -100,11 +100,56 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->set_count = 5;
         $exercise->rep_count = 20;
         $exercise->save();
+        // Decline barbell bench press
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Decline barbell bench press';
+        $exercise->body_part = 'Chest';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 10;
+        $exercise->save();
+        // Decline dumbbell bench press
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Decline dumbbell bench press';
+        $exercise->body_part = 'Chest';
+        $exercise->set_count = 5;
+        $exercise->rep_count = 8;
+        $exercise->save();
+        // Incline dumbbell flies
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Incline dumbbell flies';
+        $exercise->body_part = 'Chest';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 15;
+        $exercise->save();
+        // Machine chest press
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Machine chest press';
+        $exercise->body_part = 'Chest';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 12;
+        $exercise->save();
+        // Bar dips
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Bar dips';
+        $exercise->body_part = 'Chest';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 12;
+        $exercise->save();
     }
 
-    // 8 exercises so far
+    // 13 back exercises
     private function addBackExercises() {
-        // pullups
+        // Pullups
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
@@ -113,20 +158,20 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->set_count = 4;
         $exercise->rep_count = 8;
         $exercise->save();
-        // deadlift
+        // Barbell deadlift
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Deadlift';
+        $exercise->name = 'Barbell deadlift';
         $exercise->body_part = 'Back';
         $exercise->set_count = 6;
         $exercise->rep_count = 8;
         $exercise->save();
-        // Lat pull down
+        // Lat pulldown
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Lat pull down';
+        $exercise->name = 'Lat pulldown';
         $exercise->body_part = 'Back';
         $exercise->set_count = 5;
         $exercise->rep_count = 8;
@@ -158,11 +203,20 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->set_count = 5;
         $exercise->rep_count = 8;
         $exercise->save();
-        // Cable row
+        // Seated close grip cable row
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Cable row';
+        $exercise->name = 'Seated close grip cable row';
+        $exercise->body_part = 'Back';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 10;
+        $exercise->save();
+        // Seated wide grip cable row
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Seated wide grip cable row';
         $exercise->body_part = 'Back';
         $exercise->set_count = 4;
         $exercise->rep_count = 10;
@@ -174,11 +228,47 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->name = 'Lower back extension';
         $exercise->body_part = 'Back';
         $exercise->set_count = 4;
+        $exercise->rep_count = 12;
+        $exercise->save();
+        // Barbell row
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Barbell row';
+        $exercise->body_part = 'Back';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 8;
+        $exercise->save();
+        // Dumbbell deadlift
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Dumbbell deadlift';
+        $exercise->body_part = 'Back';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 12;
+        $exercise->save();
+        // Kettlebell swings
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Kettlebell swings';
+        $exercise->body_part = 'Back';
+        $exercise->set_count = 4;
         $exercise->rep_count = 15;
+        $exercise->save();
+        // Machine row
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Lower';
+        $exercise->body_part = 'Back';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 10;
         $exercise->save();
     }
 
-    // 8 exercises so far
+    // 19 shoulder exercises
     private function addShouldersExercises() {
         // Standing barbell shoulder press
         $exercise = new Exercise();
@@ -207,14 +297,14 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->set_count = 5;
         $exercise->rep_count = 10;
         $exercise->save();
-        // Side lateral raise
+        // Dumbbell lateral raise
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Side lateral raise';
+        $exercise->name = 'Dumbbell lateral raise';
         $exercise->body_part = 'Shoulders';
-        $exercise->set_count = 4;
-        $exercise->rep_count = 10;
+        $exercise->set_count = 3;
+        $exercise->rep_count = 12;
         $exercise->save();
         // Machine shoulder press
         $exercise = new Exercise();
@@ -223,7 +313,7 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->name = 'Machine shoulder press';
         $exercise->body_part = 'Shoulders';
         $exercise->set_count = 5;
-        $exercise->rep_count = 12;
+        $exercise->rep_count = 10;
         $exercise->save();
         // Barbell front raise - the one where arms are straight
         $exercise = new Exercise();
@@ -234,11 +324,11 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->set_count = 4;
         $exercise->rep_count = 8;
         $exercise->save();
-        // Cable rear delts
+        // Cable pull aparts
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Cable rear delts';
+        $exercise->name = 'Cable pull aparts';
         $exercise->body_part = 'Shoulders';
         $exercise->set_count = 4;
         $exercise->rep_count = 10;
@@ -250,11 +340,110 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->name = 'Barbell shrugs';
         $exercise->body_part = 'Shoulders';
         $exercise->set_count = 4;
+        $exercise->rep_count = 15;
+        $exercise->save();
+        // Band pull aparts
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Band pull aparts';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 15;
+        $exercise->save();
+        // Plate front raise
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Plate front raise';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 10;
+        $exercise->save();
+        // Dumbbell front raise
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Dumbbell front raise';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 8;
+        $exercise->save();
+        // Barbell upright row
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Barbell upright row';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 12;
+        $exercise->save();
+        // Cable lateral raise
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Cable lateral raise';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 10;
+        $exercise->save();
+        // Standing dumbbell shoulder press
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Standing dumbbell shoulder press';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 8;
+        $exercise->save();
+        // Seated barbell shoulder press
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Seated barbell shoulder press';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 8;
+        $exercise->save();
+        // Machine lateral raise
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Barbell';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 10;
+        $exercise->save();
+        // Reverse dumbbell flies
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Reverse dumbbell flies';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 10;
+        $exercise->save();
+        // Reverse machine flies
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Reverse machine flies';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 10;
+        $exercise->save();
+        // Dumbbell shrugs
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Dumbbell shrugs';
+        $exercise->body_part = 'Shoulders';
+        $exercise->set_count = 4;
         $exercise->rep_count = 12;
         $exercise->save();
     }
 
-    // 7 exercises so far
+    // 13 leg exercises
     private function addLegsExercises() {
         // Barbell squats
         $exercise = new Exercise();
@@ -319,9 +508,63 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->set_count = 4;
         $exercise->rep_count = 12;
         $exercise->save();
+        // Walking lunges
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Walking lunges';
+        $exercise->body_part = 'Legs';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 20;
+        $exercise->save();
+        // Weighted lunges
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Weighted lunges';
+        $exercise->body_part = 'Legs';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 12;
+        $exercise->save();
+        // Bulgarian split squats
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Bulgarian split squats';
+        $exercise->body_part = 'Legs';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 8;
+        $exercise->save();
+        // Hip adduction and abduction machine
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Hip adduction and abduction machine';
+        $exercise->body_part = 'Legs';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 12;
+        $exercise->save();
+        // Single leg leg press
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Single leg leg press';
+        $exercise->body_part = 'Legs';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 10;
+        $exercise->save();
+        // Weighted step ups
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Weighted step ups';
+        $exercise->body_part = 'Legs';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 10;
+        $exercise->save();
     }
 
-    // 5 exercises so far
+    // 11 bicep exercises
     private function addBicepsExercises() {
         // Single arm dumbbell curls
         $exercise = new Exercise();
@@ -367,10 +610,64 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->body_part = 'Biceps';
         $exercise->set_count = 4;
         $exercise->rep_count = 10;
-        $exercise->save();        
+        $exercise->save();
+        // Rope cable curls
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Rope cable curls';
+        $exercise->body_part = 'Biceps';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 10;
+        $exercise->save();  
+        // Reverse grip straight bar cable curls
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Reverse grip straight bar cable curls';
+        $exercise->body_part = 'Biceps';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 12;
+        $exercise->save();  
+        // Dumbbell concentration curls
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Dumbbell concentration curls';
+        $exercise->body_part = 'Biceps';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 8;
+        $exercise->save(); 
+        // Cross body hammer curl
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Cross body hammer curl';
+        $exercise->body_part = 'Biceps';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 10;
+        $exercise->save(); 
+        // Seated incline hammer curl
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Seated incline hammer curl';
+        $exercise->body_part = 'Biceps';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 10;
+        $exercise->save(); 
+        // Spider curls
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Spider curls';
+        $exercise->body_part = 'Biceps';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 12;
+        $exercise->save();
     }
 
-    // 5 exercises so far
+    // 9 tricep exercises
     private function addTricepsExercises() {
         // Skull crushers
         $exercise = new Exercise();
@@ -416,6 +713,42 @@ class ExercisesTableSeeder extends Seeder {
         $exercise->body_part = 'Triceps';
         $exercise->set_count = 5;
         $exercise->rep_count = 15;
-        $exercise->save();        
+        $exercise->save();
+        // Tricep pulldowns with bar
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Tricep pulldowns with bar';
+        $exercise->body_part = 'Triceps';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 12;
+        $exercise->save(); 
+        // Overhead cable tricep extension
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Overhead cable tricep extension';
+        $exercise->body_part = 'Triceps';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 10;
+        $exercise->save(); 
+        // Single arm bent over dumbbell extension
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Single arm bent over dumbbell extension';
+        $exercise->body_part = 'Triceps';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 15;
+        $exercise->save(); 
+        // Single arm bent over cable extension
+        $exercise = new Exercise();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Single arm bent over cable extension';
+        $exercise->body_part = 'Triceps';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 12;
+        $exercise->save(); 
     }
 }

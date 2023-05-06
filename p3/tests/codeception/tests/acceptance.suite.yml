@@ -9,6 +9,6 @@ modules:
     enabled:
         - Asserts
         - PhpBrowser:
-            url: http://http://e15p3.dannybodner.com/
+            url: http://e15p3.dannybodner.com
         - \Helper\Acceptance
 step_decorators: ~        

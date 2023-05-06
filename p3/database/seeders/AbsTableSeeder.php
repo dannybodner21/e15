@@ -21,7 +21,7 @@ class AbsTableSeeder extends Seeder {
         $this->addAbExercises();
     }
 
-    // 6 exercises so far
+    // 11 ab exercises
     private function addAbExercises() {
         // situps
         $exercise = new Ab();
@@ -47,11 +47,11 @@ class AbsTableSeeder extends Seeder {
         $exercise->set_count = 4;
         $exercise->rep_count = 20;
         $exercise->save();
-        // leg raises
+        // lying leg raises
         $exercise = new Ab();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Leg raises';
+        $exercise->name = 'Lying leg raises';
         $exercise->set_count = 4;
         $exercise->rep_count = 12;
         $exercise->save();
@@ -70,6 +70,46 @@ class AbsTableSeeder extends Seeder {
         $exercise->name = 'V ups';
         $exercise->set_count = 4;
         $exercise->rep_count = 10;
+        $exercise->save();
+        // Cable crunches
+        $exercise = new Ab();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Cable crunches';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 12;
+        $exercise->save();
+        // Hanging knee raises
+        $exercise = new Ab();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Hanging knee raises';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 10;
+        $exercise->save();
+        // Russian twists
+        $exercise = new Ab();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Russian twists';
+        $exercise->set_count = 4;
+        $exercise->rep_count = 20;
+        $exercise->save();
+        // Machine crunches
+        $exercise = new Ab();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Machine crunches';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 15;
+        $exercise->save();
+        // Mountain climbers
+        $exercise = new Ab();
+        $exercise->created_at = $this->faker->dateTimeThisMonth();
+        $exercise->updated_at = $this->faker->dateTimeThisMonth();
+        $exercise->name = 'Mountain climbers';
+        $exercise->set_count = 3;
+        $exercise->rep_count = 20;
         $exercise->save();
     }
 }

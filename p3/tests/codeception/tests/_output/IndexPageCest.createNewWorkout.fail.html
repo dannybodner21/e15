@@ -1,27 +1,42 @@
-@extends('template')
+<!doctype html>
+<html lang='en'>
 
-@section('title')
-    {{ $title }}
-@endsection
-
-@section('head')
-    <link href='/css/style.css' rel='stylesheet'>
+<head>
+    <title>    P3
+</title>
+    <meta charset='utf-8'>
+    <link href='/css/style.css' type='text/css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href='/css/style.css' rel='stylesheet'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-@endsection
+</head>
 
-@section('content')
+<body>
 
+    <header style='margin:0px;'>
+        <nav>
+            <ul>
+                <!-- ...Other nav links here... -->
+                <li style='font-size:30px;'><a href='/'>P3</a></li>
+
+                <li>
+                                            <form method='POST' id='logout' action='/logout'>
+                            <input type="hidden" name="_token" value="e3j40boClJilt89F1fXKrrYjJmZoVl06nSh8BmSj">
+                            <a href='#' onClick='document.getElementById("logout").submit();'>Logout</a>
+                        </form>
+                                    </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        
     <body>
 
         <!-- user is not logged in -->
-        @if (!Auth::user())
-            <div>
-                <h6>Please <a href='/login'>login</a> to create and save workouts!</h6>
-            </div>
-            <!-- user is logged in -->
-        @else
-            <h5 style='text-align:center;padding-top:30px;'>
-                Welcome, {{ Auth::user()->name }}!
+                    <h5 style='text-align:center;padding-top:30px;'>
+                Welcome, Jill Harvard!
             </h5>
             <!-- buttons to create workouts -->
             <div class='row' style='margin:auto; width:70%;'>
@@ -33,7 +48,7 @@
                     <!-- figure out random workout here -->
 
                     <form action='/randomWorkout' method='POST'>
-                        {{ csrf_field() }}
+                        <input type="hidden" name="_token" value="e3j40boClJilt89F1fXKrrYjJmZoVl06nSh8BmSj">
                         <button type='submit' class='formButtonTwo customButton' name='random' value='random'>Generate
                             Random
                             Workout</button>
@@ -46,7 +61,7 @@
                 <div class='dailyWorkoutFormDiv'>
                     <button class='XButton' value='hideForm' onclick='hideForm()'>X</button>
                     <form id='dailyWorkoutForm' method='POST' action='/dailyWorkout'>
-                        {{ csrf_field() }}
+                        <input type="hidden" name="_token" value="e3j40boClJilt89F1fXKrrYjJmZoVl06nSh8BmSj">
                         <div>
                             <div style='text-align:center;padding-bottom:15px;'>
                                 <h4><strong>Create a new Daily Workout</strong></h4>
@@ -56,7 +71,7 @@
                                 Name of workout:
                             </label>
                             <br>
-                            <input type='text' name='name' value='{{ old('name') }}' test='mainFormName'>
+                            <input type='text' name='name' value='testing workout creation' test='mainFormName'>
                             <hr>
 
                             <label for='bodyParts'>
@@ -64,22 +79,22 @@
                             </label>
                             <br>
                             <input type='checkbox' id='chest' name='chest' value='true'
-                                {{ old('chest') ? 'checked' : '' }} test='mainFormChest'>
+                                checked test='mainFormChest'>
                             <label for='chest'>chest</label><br>
                             <input type='checkbox' id='back' name='back' value='true'
-                                {{ old('back') ? 'checked' : '' }}>
+                                >
                             <label for='back'>back</label><br>
                             <input type='checkbox' id="shoulders" name="shoulders" value="true"
-                                {{ old('shoulders') ? 'checked' : '' }}>
+                                >
                             <label for='shoulders'>shoulders</label><br>
                             <input type='checkbox' id='legs' name='legs' value='true'
-                                {{ old('legs') ? 'checked' : '' }}>
+                                >
                             <label for='legs'>legs</label><br>
                             <input type='checkbox' id='biceps' name='biceps' value='true'
-                                {{ old('biceps') ? 'checked' : '' }}>
+                                >
                             <label for='biceps'>biceps</label><br>
                             <input type='checkbox' id='triceps' name='triceps' value='true'
-                                {{ old('triceps') ? 'checked' : '' }} test='mainFormTriceps'>
+                                checked test='mainFormTriceps'>
                             <label for='triceps'>triceps</label><br>
                             <hr>
 
@@ -88,7 +103,7 @@
                             </label>
                             <br>
                             <label style='margin-top: 10px;'>
-                                <input type='checkbox' value='true' name='abs' {{ old('abs') ? 'checked' : '' }}> Yes
+                                <input type='checkbox' value='true' name='abs' > Yes
                             </label>
                             <hr>
 
@@ -96,18 +111,18 @@
                                 Cardio:
                             </label>
                             <select name='cardio' id='cardio'>
-                                <option value='none' @if (old('cardio') == 'none') selected='selected' @endif>none
+                                <option value='none'  selected='selected' >none
                                 </option>
-                                <option value='run' @if (old('cardio') == 'run') selected='selected' @endif>run
+                                <option value='run' >run
                                 </option>
-                                <option value='swim' @if (old('cardio') == 'swim') selected='selected' @endif>swim
+                                <option value='swim' >swim
                                 </option>
-                                <option value='stairmaster' @if (old('cardio') == 'stairmaster') selected='selected' @endif>
+                                <option value='stairmaster' >
                                     stairmaster
                                 </option>
-                                <option value='bike' @if (old('cardio') == 'bike') selected='selected' @endif>bike
+                                <option value='bike' >bike
                                 </option>
-                                <option value='row' @if (old('cardio') == 'row') selected='selected' @endif>row
+                                <option value='row' >row
                                 </option>
                             </select>
 
@@ -121,20 +136,7 @@
                 <div class='container'>
                     <div class='row'>
                         <div class='col'>
-                            @if (count($errors) > 0)
-                                <div class='errorDiv'>
-                                    <div class='errorHeader'>
-                                        <h4><strong>Errors</strong></h4>
-                                        <hr>
-                                    </div>
-                                    <ul class='textLeft'>
-                                        @foreach ($errors->all() as $error)
-                                            <li class='listItem'>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
+                                                    </div>
                     </div>
                 </div>
             </section>
@@ -146,60 +148,51 @@
                     <button class='XButton' value='hideResults' onclick='hideResults()'>X</button>
                     <div class='row'>
                         <div class='col'>
-                            @if (!is_null($name))
-                                <div class='resultsDiv'>
+                                                            <div class='resultsDiv'>
                                     <div class='resultsHeader'>
-                                        <h5 style='padding-bottom:10px;'><strong>{{ $name }}</strong></h5>
-                                        <h6><strong>Bodyparts:</strong> {{ $bodyParts }}</h6>
+                                        <h5 style='padding-bottom:10px;'><strong>testing workout creation</strong></h5>
+                                        <h6><strong>Bodyparts:</strong> Chest, Triceps</h6>
                                         <hr>
 
                                         <!-- show cardio workout if it exists -->
-                                        @if ($cardio != 'none')
-                                            <h6><strong>Cardio:</strong> {{ $cardio }}</h6>
-                                            <h6 class='indentedText'>{{ $randomCardioExercise }}</h6>
-                                            <hr>
-                                        @endif
-
+                                        
                                         <!-- [ [one,two], [three,four] ] -->
                                         <h6><strong>Main exercises:</strong></h6>
-                                        @foreach ($finalExercises as $bodyPartExercises)
-                                            @foreach ($bodyPartExercises as $exercise)
-                                                <h6 class='indentedText'>&#x2022; {{ $exercise[0] }}</h6>
-                                                <h6 class='indentedTextTwo'>{{ $exercise[1] }}</h6>
-                                            @endforeach
-                                        @endforeach
-                                        <hr>
+                                                                                                                                    <h6 class='indentedText'>&#x2022; Barbell bench press</h6>
+                                                <h6 class='indentedTextTwo'>5 sets of 8 reps</h6>
+                                                                                            <h6 class='indentedText'>&#x2022; Dumbbell bench press</h6>
+                                                <h6 class='indentedTextTwo'>5 sets of 8 reps</h6>
+                                                                                            <h6 class='indentedText'>&#x2022; Dumbbell incline bench press</h6>
+                                                <h6 class='indentedTextTwo'>5 sets of 8 reps</h6>
+                                                                                                                                                                                <h6 class='indentedText'>&#x2022; Dumbbell overhead extension</h6>
+                                                <h6 class='indentedTextTwo'>4 sets of 15 reps</h6>
+                                                                                            <h6 class='indentedText'>&#x2022; Close grip bench press</h6>
+                                                <h6 class='indentedTextTwo'>5 sets of 8 reps</h6>
+                                                                                            <h6 class='indentedText'>&#x2022; Dips</h6>
+                                                <h6 class='indentedTextTwo'>5 sets of 15 reps</h6>
+                                                                                                                            <hr>
 
                                         <!-- show cardio workout if it exists -->
-                                        @if ($abs == 'true')
-                                            <h6><strong>Ab workout:</strong></h6>
-                                            @foreach ($randomAbExercises as $abExercise)
-                                                <h6 class='indentedText'>&#x2022; {{ $abExercise[0] }}</h6>
-                                                <h6 class='indentedTextTwo'>{{ $abExercise[1] }}</h6>
-                                            @endforeach
-                                            <hr>
-                                        @endif
-                                    </div>
+                                                                            </div>
                                 </div>
-                            @endif
-                        </div>
+                                                    </div>
                     </div>
                     <div class='row'>
                         <div class='column'
-                            @if ($generatingRandomWorkout == 'false') style='text-align:center;width:50%;' @else style='text-align:center;width:100%;' @endif>
+                             style='text-align:center;width:50%;' >
                             <form action='/saveWorkout' method='POST'>
-                                {{ csrf_field() }}
+                                <input type="hidden" name="_token" value="e3j40boClJilt89F1fXKrrYjJmZoVl06nSh8BmSj">
 
                                 <!-- name -->
-                                <input type='hidden' name='name' value='{{ old('name') }}'>
+                                <input type='hidden' name='name' value='testing workout creation'>
                                 <!-- body parts -->
-                                <input type='hidden' name='bodyPartsArray' value='{{ $bodyPartsArray }}'>
+                                <input type='hidden' name='bodyPartsArray' value='Chest,Triceps'>
                                 <!-- cardio if it exists -->
-                                <input type='hidden' name='cardioString' value='{{ $cardioString }}'>
+                                <input type='hidden' name='cardioString' value=''>
                                 <!-- main exercises -->
-                                <input type='hidden' name='mainExercisesArray' value='{{ $mainExercisesArray }}'>
+                                <input type='hidden' name='mainExercisesArray' value='Barbell bench press,Dumbbell bench press,Dumbbell incline bench press'>
                                 <!-- ab exercises if they exist -->
-                                <input type='hidden' name='absArray' value='{{ $absArray }}'>
+                                <input type='hidden' name='absArray' value=''>
 
                                 <button type='submit' class='resultButton customButton' name='save' value='save'
                                     test='saveWorkoutButton'>Save
@@ -207,14 +200,12 @@
                             </form>
                         </div>
                         <!-- don't show this button if the user clicked random workout -->
-                        @if ($generatingRandomWorkout == 'false')
-                            <div class='column' style='text-align:center;width:50%;'>
+                                                    <div class='column' style='text-align:center;width:50%;'>
                                 <button class='resultButton customButton' value='regenerateForm'
                                     onclick='regenerateForm()' test='regenerateWorkoutButton'>
                                     Re-generate Workout</button>
                             </div>
-                        @endif
-                    </div>
+                                            </div>
                 </div>
             </section>
             <!-- table view of user's saved workouts -->
@@ -230,38 +221,19 @@
                         <th class='headerItem'>Body Parts</th>
                     </tr>
 
-                    @foreach ($usersWorkouts as $workout)
-                        <tr class='customTableRow' onclick="location.href='/workout/{{ $workout['id'] }}';">
-                            <div>
-                                <td>{{ $workout['id'] }}</td>
-                                <td>{{ $workout['name'] }}</td>
-                                <td>{{ date('d-m-Y', strtotime($workout['created_at'])) }}</td>
-                                <td>{{ $workout['body_part_description'] }}</td>
-                            </div>
-                        </tr>
-                    @endforeach
-
+                    
                 </table>
 
             </div>
-        @endif
-
+        
     </body>
 
-    @if ($generatingWorkout == 'false')
-        <script>
-            $(document).ready(function() {
-                $('#results').hide();
-            });
-        </script>
-    @else
-        <script>
+            <script>
             $(document).ready(function() {
                 $('#results').show();
             });
         </script>
-    @endif
-
+    
     <script>
         // hide some elements on page load
         $(document).ready(function() {
@@ -287,4 +259,13 @@
 
 
     </html>
-@endsection
+    </section>
+
+    <footer style='padding:40px;'>
+        <hr>
+        &copy; P3, Inc.
+    </footer>
+
+</body>
+
+</html>
