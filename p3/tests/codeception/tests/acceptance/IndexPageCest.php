@@ -5,7 +5,7 @@ class IndexPageCest {
     public function _before(AcceptanceTester $I) {
     }
 
-    // create new workout and save it
+    // Create new workout and save it
     public function createNewWorkout(AcceptanceTester $I) {
 
         // Refresh the databases
@@ -39,7 +39,7 @@ class IndexPageCest {
     
     }
 
-    // create random workout and save it
+    // Create random workout and save it
     public function createRandomWorkout(AcceptanceTester $I) {
 
         // Refresh the databases
@@ -68,11 +68,41 @@ class IndexPageCest {
     }
 
 
-    // try and submit a workout without a name and fail
+    // Try and submit a workout without a name and fail
+    public function noNameInForm(AcceptanceTester $I) {
 
+        // Refresh the databases
+        $I->amOnPage('/test/refreshDatabase');
 
-    // try to submit a workout without a body part and fail
+        // Login
+        $I->amOnPage('/test/loginAs/1');
+        $I->amOnPage('/');
 
+        // Interact with form elements
+        $I->checkOption('[test=mainFormChest]');
+        $I->click('[test=generateButton]');
+
+        // Check for elements when the results show
+        $I->see('The name field is required.');
+    }
+
+    // Try to submit a workout without a body part and fail
+    public function noBodyPartInForm(AcceptanceTester $I) {
+
+        // Refresh the databases
+        $I->amOnPage('/test/refreshDatabase');
+
+        // Login
+        $I->amOnPage('/test/loginAs/1');
+        $I->amOnPage('/');
+
+        // Interact with form elements
+        $I->fillField('[test=mainFormName]', 'this will fail');
+        $I->click('[test=generateButton]');
+
+        // Check for elements when the results show
+        $I->see('Atleast one body part is required.');
+    }
 
 
 }

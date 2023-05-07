@@ -76,9 +76,12 @@ nav ul li button:hover {
     color: black;
 }
 
-.navBarItem:hover {
-    color: rgb(241, 90, 90);
+.navButton {
+    border: none;
+    background-color: white;
 }
+
+
 
 
 

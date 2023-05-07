@@ -8,6 +8,9 @@ class RegisterPageCest
     // Make sure user can register
     public function userCanRegister(AcceptanceTester $I) {
 
+        // Refresh the databases
+        $I->amOnPage('/test/refreshDatabase');
+
         // Act
         $I->amOnPage('/register');
 
@@ -19,12 +22,12 @@ class RegisterPageCest
         $I->fillField('[name=email]', 'test@harvard.edu');
         $I->fillField('[name=password]', 'asdfasdf');
         $I->fillField('[name=password_confirmation]', 'asdfasdf');
-        //$I->click('button');
+        $I->click('button');
 
         // Assert expected results
-        //$I->see('Welcome, Test User!');
+        $I->see('Welcome, Test User!');
 
         // Assert the existence of text within a specific element on the page
-        //$I->see('Logout', 'nav');
+        $I->see('Logout', 'nav');
     }
 }
