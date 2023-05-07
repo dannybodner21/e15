@@ -82,6 +82,12 @@ class MainController extends Controller {
         // Form validation
         $request->validate([
             'name' => 'required',
+            'chest' => 'required_without_all:back,shoulders,legs,biceps,triceps',
+            'back' => 'required_without_all:chest,shoulders,legs,biceps,triceps',
+            'shoulders' => 'required_without_all:chest,back,legs,biceps,triceps',
+            'legs' => 'required_without_all:chest,back,shoulders,biceps,triceps',
+            'biceps' => 'required_without_all:chest,back,shoulders,legs,triceps',
+            'triceps' => 'required_without_all:chest,back,shoulders,legs,biceps',
         ]);
         // NEED TO MAKE SURE THAT ATLEAST ONE BODY PART IS SELECTED
     

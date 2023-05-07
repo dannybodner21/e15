@@ -15,7 +15,7 @@
 
         <!-- user is not logged in -->
         @if (!Auth::user())
-            <div>
+            <div style='text-align:center;padding-top:50px;'>
                 <h6>Please <a href='/login'>login</a> to create and save workouts!</h6>
             </div>
             <!-- user is logged in -->
@@ -34,7 +34,8 @@
 
                     <form action='/randomWorkout' method='POST'>
                         {{ csrf_field() }}
-                        <button type='submit' class='formButtonTwo customButton' name='random' value='random'>Generate
+                        <button type='submit' class='formButtonTwo customButton' name='random' value='random'
+                            test='generateRandomWorkoutButton'>Generate
                             Random
                             Workout</button>
                     </form>
@@ -43,6 +44,35 @@
             </div>
             <!-- daily workout form section -->
             <section class='mainFormSection' id='mainFormSection'>
+                <!-- Show any errors -->
+                <div class='container' style='padding-top:35px;'>
+                    <div class='row'>
+                        <div class='col'>
+                            @if (count($errors) > 0)
+                                <div class='errorDiv'>
+                                    <div class='errorHeader'>
+                                        <h4><strong>Errors</strong></h4>
+                                        <hr>
+                                    </div>
+                                    <ul class='textLeft'>
+                                        @if ($errors->get('name'))
+                                            <li class='listItem'>{{ $errors->first('name') }}</li>
+                                        @endif
+                                        @if (
+                                            $errors->get('chest') ||
+                                                $errors->get('back') ||
+                                                $errors->get('legs') ||
+                                                $errors->get('shoulders') ||
+                                                $errors->get('biceps') ||
+                                                $errors->get('triceps'))
+                                            <li class='listItem'>Atleast one body part is required.</li>
+                                        @endif
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
                 <div class='dailyWorkoutFormDiv'>
                     <button class='XButton' value='hideForm' onclick='hideForm()'>X</button>
                     <form id='dailyWorkoutForm' method='POST' action='/dailyWorkout'>
@@ -55,7 +85,6 @@
                             <label for='name'>
                                 Name of workout:
                             </label>
-                            <br>
                             <input type='text' name='name' value='{{ old('name') }}' test='mainFormName'>
                             <hr>
 
@@ -69,7 +98,7 @@
                             <input type='checkbox' id='back' name='back' value='true'
                                 {{ old('back') ? 'checked' : '' }}>
                             <label for='back'>back</label><br>
-                            <input type='checkbox' id="shoulders" name="shoulders" value="true"
+                            <input type='checkbox' id='shoulders' name='shoulders' value='true'
                                 {{ old('shoulders') ? 'checked' : '' }}>
                             <label for='shoulders'>shoulders</label><br>
                             <input type='checkbox' id='legs' name='legs' value='true'
@@ -113,29 +142,10 @@
 
                         </div>
                         <div class='formButtonDiv'>
-                            <button type='submit' class='formButtonTwo' test='generateButton'>Generate Workout</button>
+                            <button type='submit' class='formButtonTwo customButton' test='generateButton'>Generate
+                                Workout</button>
                         </div>
                     </form>
-                </div>
-                <!-- Show any errors -->
-                <div class='container'>
-                    <div class='row'>
-                        <div class='col'>
-                            @if (count($errors) > 0)
-                                <div class='errorDiv'>
-                                    <div class='errorHeader'>
-                                        <h4><strong>Errors</strong></h4>
-                                        <hr>
-                                    </div>
-                                    <ul class='textLeft'>
-                                        @foreach ($errors->all() as $error)
-                                            <li class='listItem'>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
                 </div>
             </section>
             <!-- results from creating a workout -->
@@ -221,27 +231,33 @@
             <div style='text-align:center;margin: 50px;'>
 
                 <hr>
-                <h5 style='padding-top:15px;'><strong>Your Saved Workouts:</strong></h5>
-                <table class='workoutsTable'>
-                    <tr class='tableHeader'>
-                        <th class='headerItem'>ID</th>
-                        <th class='headerItem'>Workout Name</th>
-                        <th class='headerItem'>Created On</th>
-                        <th class='headerItem'>Body Parts</th>
-                    </tr>
 
-                    @foreach ($usersWorkouts as $workout)
-                        <tr class='customTableRow' onclick="location.href='/workout/{{ $workout['id'] }}';">
-                            <div>
-                                <td>{{ $workout['id'] }}</td>
-                                <td>{{ $workout['name'] }}</td>
-                                <td>{{ date('d-m-Y', strtotime($workout['created_at'])) }}</td>
-                                <td>{{ $workout['body_part_description'] }}</td>
-                            </div>
+                <!-- show table if there are saved workouts -->
+                @if (count($usersWorkouts) > 0)
+                    <h5 style='padding-top:30px;'>Your Saved Workouts:</h5>
+                    <table class='workoutsTable'>
+                        <tr class='tableHeader'>
+                            <th class='headerItem'>ID</th>
+                            <th class='headerItem'>Workout Name</th>
+                            <th class='headerItem'>Created On</th>
+                            <th class='headerItem'>Body Parts</th>
                         </tr>
-                    @endforeach
 
-                </table>
+                        @foreach ($usersWorkouts as $workout)
+                            <tr class='customTableRow' onclick="location.href='/workout/{{ $workout['id'] }}';">
+                                <div>
+                                    <td>{{ $workout['id'] }}</td>
+                                    <td>{{ $workout['name'] }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($workout['created_at'])) }}</td>
+                                    <td>{{ $workout['body_part_description'] }}</td>
+                                </div>
+                            </tr>
+                        @endforeach
+
+                    </table>
+                @else
+                    <h6 style='padding-top:35px;'>You don't have any saved workouts yet!</h6>
+                @endif
 
             </div>
         @endif
@@ -284,6 +300,14 @@
             $('#dailyWorkoutForm').trigger('submit');
         }
     </script>
+
+    @if (count($errors) > 0)
+        <script>
+            $(document).ready(function() {
+                $('#mainFormSection').show();
+            });
+        </script>
+    @endif
 
 
     </html>

@@ -16,13 +16,13 @@
         <nav>
             <ul>
                 <!-- ...Other nav links here... -->
-                <li style='font-size:30px;'><a href='/'>P3</a></li>
+                <li style='font-size:30px;'><a href='/' class='navBarItem'>P3</a></li>
 
                 <li>
                     @if (!Auth::user())
-                        <a href='/login'>Login</a>
+                        <a href='/login' class='navBarItem'>Login</a>
                     @else
-                        <form method='POST' id='logout' action='/logout'>
+                        <form method='POST' id='logout' action='/logout' class='navBarItem'>
                             {{ csrf_field() }}
                             <a href='#' onClick='document.getElementById("logout").submit();'>Logout</a>
                         </form>

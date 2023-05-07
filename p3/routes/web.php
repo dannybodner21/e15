@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\App;
 
 /*
@@ -35,6 +36,6 @@ Route::post('/deleteWorkout/{id}', [MainController::class, 'deleteWorkout']);
 
 // Only enable the following development-specific routes if we’re *not* running the application in the `production` environment
 if (!App::environment('production')) {
-    Route::get('/test/login-as/{userId}', [TestController::class, 'loginAs']);
-    Route::get('/test/refresh-database', [TestController::class, 'refreshDatabase']);
+    Route::get('/test/loginAs/{userId}', [TestController::class, 'loginAs']);
+    Route::get('/test/refreshDatabase', [TestController::class, 'refreshDatabase']);
 }

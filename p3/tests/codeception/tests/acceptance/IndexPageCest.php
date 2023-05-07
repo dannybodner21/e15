@@ -8,21 +8,12 @@ class IndexPageCest {
     // create new workout and save it
     public function createNewWorkout(AcceptanceTester $I) {
 
+        // Refresh the databases
+        $I->amOnPage('/test/refreshDatabase');
+
         // Login
-        //$I->amOnPage('/test/login-as/1');
-        // Act
-        //$I->amOnPage('/');
-        //$I->see('Logout');
-
-
-
-        // Login flow -----
-        $I->amOnPage('/login');
-        $I->fillField('[name=email]', 'jill@harvard.edu');
-        $I->fillField('[name=password]', 'asdfasdf');
-        $I->click('button');
-        $I->see('Logout');
-        // ----------------
+        $I->amOnPage('/test/loginAs/1');
+        $I->amOnPage('/');
 
         // Interact with form elements
         $I->fillField('[test=mainFormName]', 'testing workout creation');
@@ -47,4 +38,41 @@ class IndexPageCest {
         $I->see('Chest,Triceps');
     
     }
+
+    // create random workout and save it
+    public function createRandomWorkout(AcceptanceTester $I) {
+
+        // Refresh the databases
+        $I->amOnPage('/test/refreshDatabase');
+
+        // Login
+        $I->amOnPage('/test/loginAs/1');
+        $I->amOnPage('/');
+
+        // Double check login
+        $I->see('Logout');
+
+        // Generate random workout
+        $I->click('[test=generateRandomWorkoutButton]');
+
+        // Check for elements when the results show
+        $I->see('Random Workout');
+
+        // Save the workout
+        $I->click('[test=saveWorkoutButton]');
+
+        // Check if it worked based off of new workout ID
+        // ****** use the clearing out all tables and re seeding to know what the ID should be
+        $I->see('1');
+    
+    }
+
+
+    // try and submit a workout without a name and fail
+
+
+    // try to submit a workout without a body part and fail
+
+
+
 }
