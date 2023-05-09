@@ -48,7 +48,9 @@ My Project 3 was created to help users find new workouts to try. A user can eith
     + I used this website as reference for layout with bootstrap.
 13. [https://www.toptal.com/designers/htmlarrows/](https://www.toptal.com/designers/htmlarrows/)
     + I used this website to get an arrow symbol.
-
+14. [https://www.laravelia.com/post/laravel-9-factory-seed-many-to-many-pivot-table](https://www.laravelia.com/post/laravel-9-factory-seed-many-to-many-pivot-table)
+    + I used this website to read about seeding many to many relationships.
+    
 ## Notes for instructor
 N/A
 
