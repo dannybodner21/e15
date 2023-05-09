@@ -12,20 +12,19 @@ use App\Models\User;
 
 
 class MainController extends Controller {
+
     public function index() {
 
-        // check if user is logged in
+        // Check if user is logged in
         if (Auth::check()) {
             $userId = Auth::user()->id;
             $currentUser = User::where('id', '=', $userId)->first();
 
-            // get user's workouts
+            // Get user's workouts
             $usersWorkouts = $currentUser->workouts->toArray();
-            //dd($usersWorkouts[1]['id']);
         } else {
             $usersWorkouts = [];
         }
-
         
         return view('index', [
             'title' => 'P3',
@@ -52,34 +51,36 @@ class MainController extends Controller {
         ]);
     }
 
-    // pick exercises to include in the workout -- NOT USING THIS AT THE MOMENT
+    // Helper function to pick exercises to include in a workout
+    // Takes array of exercises (by body part) and amount needed
+    // Returns array of the picked exercises
     public function pickExercises($allExercises, $numberOfExercises) {
-        // results array
+        
+        // Results array
         $finalExercises = [];
 
-        // loop through body parts
+        // Loop through body parts
         for ($i = 0; $i < count($allExercises); $i++) {
 
-            // get random indexes from the array
+            // Get random indexes from the array
             $randomIndexes = array_rand($allExercises[$i], $numberOfExercises);
 
-            // loop through exercises to get the ones we will include based on indexes chosen
-            $randomExercises = [];
+            // Loop through exercises to get the ones we will include based on indexes chosen
             for ($j = 0; $j < count($randomIndexes); $j++) {
-                $randomExercises[$j] = $allExercises[$i][$randomIndexes[$j]];
-            }
 
-            // add exercises to the results array
-            array_push($finalExercises, $randomExercises);
+                // Add exercises to the results array
+                array_push($finalExercises, $allExercises[$i][$randomIndexes[$j]]);
+            }
         }
 
-        // return results
+        // Return results
         return $finalExercises;
     }
 
     public function dailyWorkout(Request $request) {
 
         // Form validation
+        // Require a name and atleast one major body part
         $request->validate([
             'name' => 'required',
             'chest' => 'required_without_all:back,shoulders,legs,biceps,triceps',
@@ -89,140 +90,119 @@ class MainController extends Controller {
             'biceps' => 'required_without_all:chest,back,shoulders,legs,triceps',
             'triceps' => 'required_without_all:chest,back,shoulders,legs,biceps',
         ]);
-        // NEED TO MAKE SURE THAT ATLEAST ONE BODY PART IS SELECTED
     
         // Get form data
         $name = $request->input('name', '');
-
-        //$bodyParts = $request->input('bodyParts', '');
         $chest = $request->input('chest', '');
         $back = $request->input('back', '');
         $shoulders = $request->input('shoulders', '');
         $legs = $request->input('legs', '');
         $biceps = $request->input('biceps', '');
         $triceps = $request->input('triceps', '');
-
         $abs = $request->input('abs', '');
         $cardio = $request->input('cardio', '');
-    
-        // Create arrays with data from database tables
-        // ONLY CREATE THE ARRAY IF THE BODY PART WAS SELECTED************
 
-        $chestRows = Exercise::where('body_part','=','Chest')->get()->toArray();
-        $chestArray = [];
-        for($i=0;$i<count($chestRows);$i++) {
-            $chestArray[$i] = [$chestRows[$i]['name'],strval($chestRows[$i]['set_count']).' sets of '.strval($chestRows[$i]['rep_count']).' reps'];
-        }
-
-        $backRows = Exercise::where('body_part','=','Back')->get()->toArray();
-        $backArray = [];
-        for($i=0;$i<count($backRows);$i++) {
-            $backArray[$i] = [$backRows[$i]['name'],strval($backRows[$i]['set_count']).' sets of '.strval($backRows[$i]['rep_count']).' reps'];
-        }
-
-        $shouldersRows = Exercise::where('body_part','=','Shoulders')->get()->toArray();
-        $shouldersArray = [];
-        for($i=0;$i<count($shouldersRows);$i++) {
-            $shouldersArray[$i] = [$shouldersRows[$i]['name'],strval($shouldersRows[$i]['set_count']).' sets of '.strval($shouldersRows[$i]['rep_count']).' reps'];
-        }
-
-        $legsRows = Exercise::where('body_part','=','Legs')->get()->toArray();
-        $legsArray = [];
-        for($i=0;$i<count($legsRows);$i++) {
-            $legsArray[$i] = [$legsRows[$i]['name'],strval($legsRows[$i]['set_count']).' sets of '.strval($legsRows[$i]['rep_count']).' reps'];
-        }
-
-        $bicepsRows = Exercise::where('body_part','=','Biceps')->get()->toArray();
-        $bicepsArray = [];
-        for($i=0;$i<count($bicepsRows);$i++) {
-            $bicepsArray[$i] = [$bicepsRows[$i]['name'],strval($bicepsRows[$i]['set_count']).' sets of '.strval($bicepsRows[$i]['rep_count']).' reps'];
-        }
-
-        $tricepsRows = Exercise::where('body_part','=','Triceps')->get()->toArray();
-        $tricepsArray = [];
-        for($i=0;$i<count($tricepsRows);$i++) {
-            $tricepsArray[$i] = [$tricepsRows[$i]['name'],strval($tricepsRows[$i]['set_count']).' sets of '.strval($tricepsRows[$i]['rep_count']).' reps'];
-        }
-
-        // initialize an array to hold each body part array
+        // Initialize arrays
         $allExercises = [];
-
         $bodyParts = [];
-
-        // STRUCTURE: workout:[ [bodypart1 [exercise1,sets/repts],[exercise2,sets/reps] ], [bp2 [e1],[e2] ]]
 
         // Grab exercises from whichever body parts were picked in the form
         if ($chest == 'true') {
+            $chestRows = Exercise::where('body_part','=','Chest')->get()->toArray();
+            $chestArray = [];
+            // Format it
+            for($i=0;$i<count($chestRows);$i++) {
+                $chestArray[$i] = [$chestRows[$i]['name'],strval($chestRows[$i]['set_count']).' sets of '.strval($chestRows[$i]['rep_count']).' reps'];
+            }
+            // Add to appropriate arrays
             array_push($allExercises, $chestArray);
             array_push($bodyParts, 'Chest');
         }
         if ($back == 'true') {
+            $backRows = Exercise::where('body_part','=','Back')->get()->toArray();
+            $backArray = [];
+            // Format it
+            for($i=0;$i<count($backRows);$i++) {
+                $backArray[$i] = [$backRows[$i]['name'],strval($backRows[$i]['set_count']).' sets of '.strval($backRows[$i]['rep_count']).' reps'];
+            }
+            // Add to appropriate arrays
             array_push($allExercises, $backArray);
             array_push($bodyParts, 'Back');
         }
         if ($legs == 'true') {
+            $legsRows = Exercise::where('body_part','=','Legs')->get()->toArray();
+            $legsArray = [];
+            // Format it
+            for($i=0;$i<count($legsRows);$i++) {
+                $legsArray[$i] = [$legsRows[$i]['name'],strval($legsRows[$i]['set_count']).' sets of '.strval($legsRows[$i]['rep_count']).' reps'];
+            }
+            // Add to appropriate arrays
             array_push($allExercises, $legsArray);
             array_push($bodyParts, 'Legs');
         }
         if ($shoulders == 'true') {
+            $shouldersRows = Exercise::where('body_part','=','Shoulders')->get()->toArray();
+            $shouldersArray = [];
+            // Format it
+            for($i=0;$i<count($shouldersRows);$i++) {
+                $shouldersArray[$i] = [$shouldersRows[$i]['name'],strval($shouldersRows[$i]['set_count']).' sets of '.strval($shouldersRows[$i]['rep_count']).' reps'];
+            }
+            // Add to appropriate arrays
             array_push($allExercises, $shouldersArray);
             array_push($bodyParts, 'Shoulders');
         }
         if ($biceps == 'true') {
+            $bicepsRows = Exercise::where('body_part','=','Biceps')->get()->toArray();
+            $bicepsArray = [];
+            // Format it
+            for($i=0;$i<count($bicepsRows);$i++) {
+                $bicepsArray[$i] = [$bicepsRows[$i]['name'],strval($bicepsRows[$i]['set_count']).' sets of '.strval($bicepsRows[$i]['rep_count']).' reps'];
+            }
+            // Add to appropriate arrays
             array_push($allExercises, $bicepsArray);
             array_push($bodyParts, 'Biceps');
         }
         if ($triceps == 'true') {
+            $tricepsRows = Exercise::where('body_part','=','Triceps')->get()->toArray();
+            $tricepsArray = [];
+            // Format it
+            for($i=0;$i<count($tricepsRows);$i++) {
+                $tricepsArray[$i] = [$tricepsRows[$i]['name'],strval($tricepsRows[$i]['set_count']).' sets of '.strval($tricepsRows[$i]['rep_count']).' reps'];
+            }
+            // Add to appropriate arrays
             array_push($allExercises, $tricepsArray);
             array_push($bodyParts, 'Triceps');
         }
 
-        // this will be used in hidden form to hold all body parts including abs and cardio
+        // This will be used in hidden form to hold all body parts including abs and cardio
         $bodyPartsArray = $bodyParts;
-        
-        // get 3 exercises for each body part
-        // $totalExercises = 3 * count($allExercises);
 
-        // need to loop through each body part that is in the all exercises array
-        // get 3 random numbers in the body part exercises array for each body part
-        // get the exercises associated with those indexes
-        $finalExercises = [];
-        for ($i = 0; $i < count($allExercises); $i++) {
-            $randomIndexes = array_rand($allExercises[$i], 3);
+        // Choose the final exercises to include in the workout
+        $finalExercises = MainController::pickExercises($allExercises, 3);
 
-            $randomExercises = [];
-            for ($j = 0; $j < count($randomIndexes); $j++) {
-                $randomExercises[$j] = $allExercises[$i][$randomIndexes[$j]];
-            }
-            array_push($finalExercises, $randomExercises);
-        }
-
-        // get array of exercise names(strings) to use for hidden form fields
+        // Get array of exercise names(strings) to use for hidden form fields
         $mainExercisesArray = [];
-        for ($i=0;$i<count($finalExercises[0]);$i++) {
-            array_push($mainExercisesArray, $finalExercises[0][$i][0]);
+        for ($i=0;$i<count($finalExercises);$i++) {
+            array_push($mainExercisesArray, $finalExercises[$i][0]);
         }
 
-        // initialize array so there is no array if abs is not checked
+        // Initialize array so there is no error if abs is not checked
         $randomAbExercises =  [];
 
-        // check if abs was checked
+        // Check if abs was checked
         if ($abs == 'true') {
 
             array_push($bodyPartsArray, 'Abs');
 
-            // get ab workout
-
-            // grab ab exercises from database
-            // select all from abs table
+            // Grab ab exercises from database
             $abRows = Ab::all()->toArray();
             $abExercises = [];
             for ($i=0;$i<count($abRows);$i++) {
+                // Format it
                 $abExercises[$i] = [$abRows[$i]['name'],strval($abRows[$i]['set_count']).' sets of '.strval($abRows[$i]['rep_count']).' reps'];
             }
             
-            // create an ab workout
-            // consisting of 3-6 ab exercises
+            // Create an ab workout consisting of 3-6 ab exercises
 
             // get random number between 3 and 6 inclusive
             $numberOfExercises = rand(3, 6);
@@ -230,7 +210,7 @@ class MainController extends Controller {
             // get random keys from ab exercise array
             $randomAbExercises = array_rand($abExercises, $numberOfExercises);
         
-            // that will give keys, so now we have to get the values
+            // That will give keys, so now we have to get the values
             for ($i = 0; $i < count($randomAbExercises); $i++) {
                 $randomAbExercises[$i] = $abExercises[$randomAbExercises[$i]];
             }
@@ -241,46 +221,76 @@ class MainController extends Controller {
             array_push($absArray, $randomAbExercises[$i][0]);
         }
 
-        // initialize so there isn't an error if no cardio
-        $randomCardioExercise = ''; // not sure if this needs to be array or just string
+        // Initialize so there isn't an error if no cardio
+        $randomCardioExercise = '';
 
-        // check for cardio
+        // Check for cardio
         if ($cardio != 'none') {
 
-            // get cardio workout
+            // Will hold exercises of whichever cardio was picked
+            $cardioArray = [];
+
+            // Get cardio workout
             if ($cardio == 'run') {
-                // get a run workout
-                $randomCardioExercise = 'run workout 1';
+
+                // Get array of run exercises
+                $runRows = Cardio_Exercise::where('type','=','Run')->get()->toArray();
+                for($i=0;$i<count($runRows);$i++) {
+                    $cardioArray[$i] = $runRows[$i]['exercise'];
+                }
+
                 array_push($bodyPartsArray, 'Run');
 
             } else if ($cardio == 'swim') {
-                // get swim workout
-                $randomCardioExercise = 'swim workout 1';
+
+                // Get array of swim exercises
+                $swimRows = Cardio_Exercise::where('type','=','Swim')->get()->toArray();
+                for($i=0;$i<count($swimRows);$i++) {
+                    $cardioArray[$i] = $swimRows[$i]['exercise'];
+                }
+
                 array_push($bodyPartsArray, 'Swim');
 
             } else if ($cardio == 'stairmaster') {
-                // get stairmaster workout
-                $randomCardioExercise = 'stairmaster workout 1';
+
+                // Get array of stairmaster exercises
+                $stairmasterRows = Cardio_Exercise::where('type','=','Stairmaster')->get()->toArray();
+                for($i=0;$i<count($stairmasterRows);$i++) {
+                    $cardioArray[$i] = $stairmasterRows[$i]['exercise'];
+                }
+
                 array_push($bodyPartsArray, 'Stairmaster');
                 
             } else if ($cardio == 'bike') {
-                // get bike workout
-                $randomCardioExercise = 'bike workout 1';
+
+                // Get array of bike exercises
+                $bikeRows = Cardio_Exercise::where('type','=','Bike')->get()->toArray();
+                for($i=0;$i<count($bikeRows);$i++) {
+                    $cardioArray[$i] = $bikeRows[$i]['exercise'];
+                }
+
                 array_push($bodyPartsArray, 'Bike');
                 
             } else if ($cardio == 'row') {
-                // get row workout
-                $randomCardioExercise = 'row workout 1';
+
+                // Get array of row exercises
+                $rowRows = Cardio_Exercise::where('type','=','Row')->get()->toArray();
+                for($i=0;$i<count($rowRows);$i++) {
+                    $cardioArray[$i] = $rowRows[$i]['exercise'];
+                }
+
                 array_push($bodyPartsArray, 'Row');
-                
             }
+
+            // Take the array of chosen cardio exercises and pick a random one
+            $randomCardioIndex = rand(0, count($cardioArray));
+            $randomCardioExercise = $cardioArray[$randomCardioIndex];
+
         }
         $cardioString = $randomCardioExercise;
 
-
-        // get logged in user's workouts
+        // Get logged in user's workouts
         $usersWorkouts  = $request->user()->workouts->toArray();
-
 
         // Redirect with variables
         return redirect('/')->with([
@@ -309,27 +319,27 @@ class MainController extends Controller {
 
     public function randomWorkout(Request $request) {
 
-        // generate random work for name of workout
+        // Name for random workout
         $name = 'Random Workout';
 
-        // get random number 1-3 of how many body parts to include
+        // Get random number 1-3 of how many body parts to include
         $numberOfBodyParts = rand(1, 3);
 
-        // choose the body parts
+        // Choose the body parts
         $allBodyParts = ['chest','back','shoulders','legs','biceps','triceps'];
 
-        // get random keys from ab exercise array
+        // Get random keys from all body parts array
         $randomIndexes = array_rand($allBodyParts, $numberOfBodyParts);
 
-        // *if array_rand only chooses one index, it returns an int not an array*
-        // to ensure no error, i will cast the int to an array
+        // *If array_rand only chooses one index, it returns an int not an array*
+        // To ensure no error, i will cast the int to an array
         if (is_int($randomIndexes)) {
             $newArray = [];
             array_push($newArray, $randomIndexes);
             $randomIndexes = $newArray;
         }
 
-        // that will give keys, so now we have to get the values
+        // That will give keys, so now we have to get the values
         $randomWorkoutBodyParts = [];
         for ($i = 0; $i < count($randomIndexes); $i++) {
             $randomWorkoutBodyParts[$i] = $allBodyParts[$randomIndexes[$i]];
@@ -337,72 +347,71 @@ class MainController extends Controller {
 
         $bodyPartsArray = $randomWorkoutBodyParts;
 
-        // figure out if beginner, intermediate or advanced workout
-        // this will say how many exercises to get per body part
-        // FOR NOW JUST GOING TO CHOOSE BETWEEN 3 OR 4 EXERCISES PER BODY PART
+        // Choose how many exercises to get per body part
         $numberOfExercises = rand(3, 4);
-        
-        // get data from database tables
 
-        $chestRows = Exercise::where('body_part','=','Chest')->get()->toArray();
-        $chestArray = [];
-        for($i=0;$i<count($chestRows);$i++) {
-            $chestArray[$i] = [$chestRows[$i]['name'],strval($chestRows[$i]['set_count']).' sets of '.strval($chestRows[$i]['rep_count']).' reps'];
-        }
-
-        $backRows = Exercise::where('body_part','=','Back')->get()->toArray();
-        $backArray = [];
-        for($i=0;$i<count($backRows);$i++) {
-            $backArray[$i] = [$backRows[$i]['name'],strval($backRows[$i]['set_count']).' sets of '.strval($backRows[$i]['rep_count']).' reps'];
-        }
-
-        $shouldersRows = Exercise::where('body_part','=','Shoulders')->get()->toArray();
-        $shouldersArray = [];
-        for($i=0;$i<count($shouldersRows);$i++) {
-            $shouldersArray[$i] = [$shouldersRows[$i]['name'],strval($shouldersRows[$i]['set_count']).' sets of '.strval($shouldersRows[$i]['rep_count']).' reps'];
-        }
-
-        $legsRows = Exercise::where('body_part','=','Legs')->get()->toArray();
-        $legsArray = [];
-        for($i=0;$i<count($legsRows);$i++) {
-            $legsArray[$i] = [$legsRows[$i]['name'],strval($legsRows[$i]['set_count']).' sets of '.strval($legsRows[$i]['rep_count']).' reps'];
-        }
-
-        $bicepsRows = Exercise::where('body_part','=','Biceps')->get()->toArray();
-        $bicepsArray = [];
-        for($i=0;$i<count($bicepsRows);$i++) {
-            $bicepsArray[$i] = [$bicepsRows[$i]['name'],strval($bicepsRows[$i]['set_count']).' sets of '.strval($bicepsRows[$i]['rep_count']).' reps'];
-        }
-
-        $tricepsRows = Exercise::where('body_part','=','Triceps')->get()->toArray();
-        $tricepsArray = [];
-        for($i=0;$i<count($tricepsRows);$i++) {
-            $tricepsArray[$i] = [$tricepsRows[$i]['name'],strval($tricepsRows[$i]['set_count']).' sets of '.strval($tricepsRows[$i]['rep_count']).' reps'];
-        }
-
-        // get the exercises per body part
-        // loop through chosen body parts
+        // Loop through chosen body parts and get exercises
         $randomWorkoutExercises = [];
         for ($i = 0; $i < count($randomWorkoutBodyParts); $i++) {
             if ($randomWorkoutBodyParts[$i] == 'chest') {
+                $chestRows = Exercise::where('body_part','=','Chest')->get()->toArray();
+                $chestArray = [];
+                for($j=0;$j<count($chestRows);$j++) {
+                    $chestArray[$j] = [$chestRows[$j]['name'],strval($chestRows[$j]['set_count']).' sets of '.strval($chestRows[$j]['rep_count']).' reps'];
+                }
                 array_push($randomWorkoutExercises, $chestArray);
             } else if ($randomWorkoutBodyParts[$i] == 'back') {
+                $backRows = Exercise::where('body_part','=','Back')->get()->toArray();
+                $backArray = [];
+                for($j=0;$j<count($backRows);$j++) {
+                    $backArray[$j] = [$backRows[$j]['name'],strval($backRows[$j]['set_count']).' sets of '.strval($backRows[$j]['rep_count']).' reps'];
+                }
                 array_push($randomWorkoutExercises, $backArray);
             } else if ($randomWorkoutBodyParts[$i] == 'legs') {
+                $legsRows = Exercise::where('body_part','=','Legs')->get()->toArray();
+                $legsArray = [];
+                for($j=0;$j<count($legsRows);$j++) {
+                    $legsArray[$j] = [$legsRows[$j]['name'],strval($legsRows[$j]['set_count']).' sets of '.strval($legsRows[$j]['rep_count']).' reps'];
+                }
                 array_push($randomWorkoutExercises, $legsArray);
             } else if ($randomWorkoutBodyParts[$i] == 'shoulders') {
+                $shouldersRows = Exercise::where('body_part','=','Shoulders')->get()->toArray();
+                $shouldersArray = [];
+                for($j=0;$j<count($shouldersRows);$j++) {
+                    $shouldersArray[$j] = [$shouldersRows[$j]['name'],strval($shouldersRows[$j]['set_count']).' sets of '.strval($shouldersRows[$j]['rep_count']).' reps'];
+                }
                 array_push($randomWorkoutExercises, $shouldersArray);
             } else if ($randomWorkoutBodyParts[$i] == 'biceps') {
+                $bicepsRows = Exercise::where('body_part','=','Biceps')->get()->toArray();
+                $bicepsArray = [];
+                for($j=0;$j<count($bicepsRows);$j++) {
+                    $bicepsArray[$j] = [$bicepsRows[$j]['name'],strval($bicepsRows[$j]['set_count']).' sets of '.strval($bicepsRows[$j]['rep_count']).' reps'];
+                }
                 array_push($randomWorkoutExercises, $bicepsArray);
             } else if ($randomWorkoutBodyParts[$i] == 'triceps') {
+                $tricepsRows = Exercise::where('body_part','=','Triceps')->get()->toArray();
+                $tricepsArray = [];
+                for($j=0;$j<count($tricepsRows);$j++) {
+                    $tricepsArray[$j] = [$tricepsRows[$j]['name'],strval($tricepsRows[$j]['set_count']).' sets of '.strval($tricepsRows[$j]['rep_count']).' reps'];
+                }
                 array_push($randomWorkoutExercises, $tricepsArray);
             }
         }
 
-        // pick the exercises - FUNCTION NOT WORKING FOR WHATEVER REASON
+
+
+
+
+        
+
+
+
+
+        // pick the exercises - FUNCTION NOT WORKING FOR WHATEVER REASON ************
         //pickExercises($randomWorkoutExercises, $numberOfExercises);
         // results array
         $finalExercises = [];
+
 
         // loop through body parts
         for ($i = 0; $i < count($randomWorkoutExercises); $i++) {
@@ -411,22 +420,17 @@ class MainController extends Controller {
             $randomIndexes = array_rand($randomWorkoutExercises[$i], $numberOfExercises);
 
             // loop through exercises to get the ones we will include based on indexes chosen
-            $randomExercises = [];
             for ($j = 0; $j < count($randomIndexes); $j++) {
-                $randomExercises[$j] = $randomWorkoutExercises[$i][$randomIndexes[$j]];
+                //$randomExercises[$j] = $randomWorkoutExercises[$i][$randomIndexes[$j]];
+                array_push($finalExercises, $randomWorkoutExercises[$i][$randomIndexes[$j]]);
             }
-
-            // add exercises to the results array
-            array_push($finalExercises, $randomExercises);
         }
 
         // get array of exercise names(strings) to use for hidden form fields
         $mainExercisesArray = [];
-        for ($i=0;$i<count($finalExercises[0]);$i++) {
-            array_push($mainExercisesArray, $finalExercises[0][$i][0]);
+        for ($i=0;$i<count($finalExercises);$i++) {
+            array_push($mainExercisesArray, $finalExercises[$i][0]);
         }
-        
-
 
         // choose if including abs or not
         $abs = rand(0, 1);
@@ -469,43 +473,29 @@ class MainController extends Controller {
 
         // if including cardio, get the workout
         $randomCardioExercise = '';
+        $cardioArray = [];
         if ($cardio == 1) {
+
             // include cardio
             $cardioOptions = ['run','swim','stairmaster','bike','row'];
             $randomIndex = array_rand($cardioOptions, 1);
+            $cardioChoice = $cardioOptions[$randomIndex];
 
-            // get cardio workout
-            if ($cardioOptions[$randomIndex] == 'run') {
-                // get a run workout
-                $randomCardioExercise = 'run workout 1';
-                array_push($bodyPartsArray, 'run');
-                $cardio = 'run';
-
-            } else if ($cardioOptions[$randomIndex] == 'swim') {
-                // get swim workout
-                $randomCardioExercise = 'swim workout 1';
-                array_push($bodyPartsArray, 'swim');
-                $cardio = 'swim';
-
-            } else if ($cardioOptions[$randomIndex] == 'stairmaster') {
-                // get stairmaster workout
-                $randomCardioExercise = 'stairmaster workout 1';
-                array_push($bodyPartsArray, 'stairmaster');
-                $cardio = 'stairmaster';
-                
-            } else if ($cardioOptions[$randomIndex] == 'bike') {
-                // get bike workout
-                $randomCardioExercise = 'bike workout 1';
-                array_push($bodyPartsArray, 'bike');
-                $cardio = 'bike';
-                
-            } else if ($cardioOptions[$randomIndex] == 'row') {
-                // get row workout
-                $randomCardioExercise = 'row workout 1';
-                array_push($bodyPartsArray, 'row');
-                $cardio = 'row';
-                
+            
+            // get array of chosen cardio exercises
+            $cardioRows = Cardio_Exercise::where('type','=',$cardioChoice)->get()->toArray();
+            for($i=0;$i<count($cardioRows);$i++) {
+                $cardioArray[$i] = $cardioRows[$i]['exercise'];
             }
+
+            // add cardio type to body parts
+            array_push($bodyPartsArray, $cardioChoice);
+            $cardio = $cardioChoice;
+
+            // take the array of chosen cardio exercises and pick a random one
+            $randomCardioIndex = rand(0, count($cardioArray));
+            $randomCardioExercise = $cardioArray[$randomCardioIndex];
+            
         } else {
             $cardio = 'none';
         }
@@ -538,9 +528,7 @@ class MainController extends Controller {
             'usersWorkouts' => $usersWorkouts,
         ]);
     }
-
-    // CREATE A FUNCTION THAT TAKES ARRAY AND CHOOSES RANDOM INDEXES
-
+    
 
     public function saveWorkout(Request $request) {
        
@@ -555,7 +543,6 @@ class MainController extends Controller {
         $cardioString = $request->input('cardioString', '');
         $mainExercisesArray = explode(',', $request->input('mainExercisesArray'));
         $absArray = explode(',', $request->input('absArray'));
-
 
         // instantiate a new Workout Model object
         $workout = new Workout();
@@ -585,7 +572,11 @@ class MainController extends Controller {
         for ($i=0;$i<count($mainExercisesArray);$i++) {
             // get exercise from database
             $exercise = Exercise::where('name', '=', $mainExercisesArray[$i])->first();
+
             // connect workout and exercise
+            //if ($exercise) {
+                //$workout->exercises()->save($exercise);
+            //}
             $workout->exercises()->save($exercise);
         }
 
@@ -598,10 +589,6 @@ class MainController extends Controller {
                 $workout->abs()->save($abExercise);
             }
         }
-
-        // confirm results
-        // dd(Workout::all()->toArray());
-
 
         // get logged in user's workouts
         $usersWorkouts  = $request->user()->workouts->toArray();
@@ -627,47 +614,41 @@ class MainController extends Controller {
             'mainExercisesArray' => '',
             'absArray' => '',
             'usersWorkouts' => $usersWorkouts,
-        ]);
-        
-
-        
+        ]);   
     }
 
 
     public function showWorkout(Request $request) {
        
-        // get workout data from database based on 'name'
-
-        // get workout id
+        // Get workout id
         $id = $request->route('id');
 
-        // get the workout from database
+        // Get workout from database
         $workout = Workout::where('id', '=', $id)->first();
 
-        // workout name
+        // Workout name
         $name = $workout->name;
 
-        // get body parts
+        // Get body parts
         $bodyParts = $workout->body_part_description;
 
-        // created on date
+        // Created on date
         $date = $workout->created_at;
         $date = date('d-m-Y', strtotime($date));
 
-        // see if we have cardio
+        // See if we have cardio
         $cardio = false;
         $cardioType = '';
-        $cardioExercises = $workout->cardio;
+        $cardioExercises = $workout->cardio_exercise->exercise;
         if ($cardioExercises != null) {
-            // we have cardio
+            // We have cardio
             $cardio = true;
 
-            // cardio type
+            // Cardio type
             $cardioType = Cardio_Exercise::where('exercise', '=', $cardioExercises)->first()->type;
         }
 
         // all the main exercises [ [one,two], [three,four] ]
-        //$mainExercisesArray = [[['one','two']],[['three','four'],['three','four']]];
 
         $workoutExercises = $workout->exercises->toArray();
         $mainExercisesArray = [];
@@ -675,13 +656,10 @@ class MainController extends Controller {
             $mainExercisesArray[$i] = [$workoutExercises[$i]['name'],strval($workoutExercises[$i]['set_count']).' sets of '.strval($workoutExercises[$i]['rep_count']).' reps'];
         }
 
-        //dd($mainExercisesArray);
-
-
         // abs as true or false
         $abs = false;
         $abExercisesArray = [];
-        if ($workout->abs != null) {
+        if (count($workout->abs->toArray()) > 0) {
             // we have an ab workout
             $abs = true;
 

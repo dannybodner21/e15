@@ -12,14 +12,18 @@
 @section('content')
 
     <body>
-        <!-- user is not logged in -->
+        <!-- User is not logged in -->
         @if (!Auth::user())
-            <div>
-                <h6>Please <a href='/login'>login</a> to create and save workouts!</h6>
+            <div style='text-align:center;padding-top:50px;'>
+                <h6>Please <a class='customLink' href='/login'>login</a> to create and save workouts!</h6>
             </div>
         @else
-            <!-- user is logged in -->
+            <!-- User is logged in -->
             <section style='padding-top:20px;padding-bottom:50px;' id='results'>
+                <!-- Back button -->
+                <div>
+                    <a href='/' class='backButton'>&#8592;</a>
+                </div>
                 <!-- Show workout -->
                 <div class='container results'>
                     <div class='row'>
@@ -31,7 +35,7 @@
                                             <strong>{{ $name }}</strong>
                                         </h5>
                                         <h6><strong>Bodyparts:</strong> {{ $bodyParts }}</h6>
-                                        <h6><strong>Create on:</strong> {{ $date }} </h6>
+                                        <h6><strong>Create on:</strong> {{ date('F d, Y', strtotime($date)) }}</h6>
                                         <hr>
 
                                         <!-- show cardio workout if it exists -->
@@ -41,7 +45,7 @@
                                             <hr>
                                         @endif
 
-                                        <!-- [ [one,two], [three,four] ] -->
+                                        <!-- [ [exercise,sets/reps], [three,four] ] -->
                                         <h6><strong>Main exercises:</strong></h6>
                                         @foreach ($mainExercisesArray as $exercise)
                                             <h6 class='indentedText'>&#x2022; {{ $exercise[0] }}</h6>
@@ -50,7 +54,7 @@
                                         <hr>
 
                                         <!-- show cardio workout if it exists -->
-                                        @if ($abs == 'true')
+                                        @if ($abs == true)
                                             <h6><strong>Ab workout:</strong></h6>
                                             @foreach ($abExercises as $abExercise)
                                                 <h6 class='indentedText'>&#x2022; {{ $abExercise[0] }}</h6>
@@ -68,10 +72,6 @@
                             <form action='/deleteWorkout/{{ $id }}' method='POST'>
                                 {{ csrf_field() }}
 
-                                <!--
-                                                    <input type='hidden' name='id' value=>
-                                                    -->
-
                                 <button type='submit' class='resultButton customButton' name='delete'
                                     value='delete'>Delete
                                     Workout</button>
@@ -80,8 +80,6 @@
                     </div>
                 </div>
             </section>
-
-
 
         @endif
 

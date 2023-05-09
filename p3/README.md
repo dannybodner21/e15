@@ -16,3 +16,48 @@
 
 ## Notes for instructor
 N/A
+
+
+
+
+# Project 3
++ By: your first and last name
++ Production URL: <http://e15p3.dannybodner.com>
+
+## Feature summary
+My Project 3 was created to help users find new workouts to try. A user can either input form data or have it all completely randomized. The user can continue to generate workouts until satisfied. If the user likes the workout, he/she can save it and view it later, until the user chooses to delete it.
+
++ Users can register/log in
++ Users can create workouts based on specific criteria (body parts, abs included, cardio)
++ Users can continually generate new workouts based on the initial criteria until satisfied with the output
++ Once the user likes a workout, the user can save it
++ Users can view all of their saved workouts
++ Users can delete workouts that they no longer want to use
++ Users can click a button to generate a random workout without inputting any data, and save it if wanted
++ The home page is used to create new workouts, and display a table of the current user's saved workouts
+
+## Database summary
+Describe the tables and relationships used in your database. Delete the examples below and replace with your own info.
+
+My application has 3 tables in total (users, movies, categories)
+There's a many-to-many relationship between movies and categories
+There's a one-to-many relationship between movies and users
+Outside resources
+Your list of outside resources go here
+
+Notes for instructor
+Any notes for me to refer to while grading; if none, omit this section
+
+Tests
+Include the full output of running codecept run acceptance --steps. If you’re taking this course for undergraduate credit and are opting out from testing, simply put "undergraduate - opting out" in this section
+
+
+
+
+
+
+
+
+
+
+

@@ -16,7 +16,7 @@
         <!-- user is not logged in -->
         @if (!Auth::user())
             <div style='text-align:center;padding-top:50px;'>
-                <h6>Please <a href='/login'>login</a> to create and save workouts!</h6>
+                <h6>Please <a class='customLink' href='/login'>login</a> to create and save workouts!</h6>
             </div>
             <!-- user is logged in -->
         @else
@@ -94,22 +94,22 @@
                             <br>
                             <input type='checkbox' id='chest' name='chest' value='true'
                                 {{ old('chest') ? 'checked' : '' }} test='mainFormChest'>
-                            <label for='chest'>chest</label><br>
+                            <label for='chest'>Chest</label><br>
                             <input type='checkbox' id='back' name='back' value='true'
                                 {{ old('back') ? 'checked' : '' }}>
-                            <label for='back'>back</label><br>
+                            <label for='back'>Back</label><br>
                             <input type='checkbox' id='shoulders' name='shoulders' value='true'
                                 {{ old('shoulders') ? 'checked' : '' }}>
-                            <label for='shoulders'>shoulders</label><br>
+                            <label for='shoulders'>Shoulders</label><br>
                             <input type='checkbox' id='legs' name='legs' value='true'
                                 {{ old('legs') ? 'checked' : '' }}>
-                            <label for='legs'>legs</label><br>
+                            <label for='legs'>Legs</label><br>
                             <input type='checkbox' id='biceps' name='biceps' value='true'
                                 {{ old('biceps') ? 'checked' : '' }}>
-                            <label for='biceps'>biceps</label><br>
+                            <label for='biceps'>Biceps</label><br>
                             <input type='checkbox' id='triceps' name='triceps' value='true'
                                 {{ old('triceps') ? 'checked' : '' }} test='mainFormTriceps'>
-                            <label for='triceps'>triceps</label><br>
+                            <label for='triceps'>Triceps</label><br>
                             <hr>
 
                             <label for='abs'>
@@ -125,18 +125,18 @@
                                 Cardio:
                             </label>
                             <select name='cardio' id='cardio'>
-                                <option value='none' @if (old('cardio') == 'none') selected='selected' @endif>none
+                                <option value='none' @if (old('cardio') == 'none') selected='selected' @endif>None
                                 </option>
-                                <option value='run' @if (old('cardio') == 'run') selected='selected' @endif>run
+                                <option value='run' @if (old('cardio') == 'run') selected='selected' @endif>Run
                                 </option>
-                                <option value='swim' @if (old('cardio') == 'swim') selected='selected' @endif>swim
+                                <option value='swim' @if (old('cardio') == 'swim') selected='selected' @endif>Swim
                                 </option>
                                 <option value='stairmaster' @if (old('cardio') == 'stairmaster') selected='selected' @endif>
-                                    stairmaster
+                                    Stairmaster
                                 </option>
-                                <option value='bike' @if (old('cardio') == 'bike') selected='selected' @endif>bike
+                                <option value='bike' @if (old('cardio') == 'bike') selected='selected' @endif>Bike
                                 </option>
-                                <option value='row' @if (old('cardio') == 'row') selected='selected' @endif>row
+                                <option value='row' @if (old('cardio') == 'row') selected='selected' @endif>Row
                                 </option>
                             </select>
 
@@ -148,7 +148,7 @@
                     </form>
                 </div>
             </section>
-            <!-- results from creating a workout -->
+            <!-- Results from creating a workout -->
             <section id='results'>
                 <!-- Show results after form is submitted -->
                 <hr>
@@ -163,20 +163,18 @@
                                         <h6><strong>Bodyparts:</strong> {{ $bodyParts }}</h6>
                                         <hr>
 
-                                        <!-- show cardio workout if it exists -->
+                                        <!-- Show cardio workout if it exists -->
                                         @if ($cardio != 'none')
                                             <h6><strong>Cardio:</strong> {{ $cardio }}</h6>
                                             <h6 class='indentedText'>{{ $randomCardioExercise }}</h6>
                                             <hr>
                                         @endif
 
-                                        <!-- [ [one,two], [three,four] ] -->
+                                        <!-- [ [exercise,sets/reps], [three,four] ] -->
                                         <h6><strong>Main exercises:</strong></h6>
-                                        @foreach ($finalExercises as $bodyPartExercises)
-                                            @foreach ($bodyPartExercises as $exercise)
-                                                <h6 class='indentedText'>&#x2022; {{ $exercise[0] }}</h6>
-                                                <h6 class='indentedTextTwo'>{{ $exercise[1] }}</h6>
-                                            @endforeach
+                                        @foreach ($finalExercises as $exercise)
+                                            <h6 class='indentedText'>&#x2022; {{ $exercise[0] }}</h6>
+                                            <h6 class='indentedTextTwo'>{{ $exercise[1] }}</h6>
                                         @endforeach
                                         <hr>
 
@@ -227,6 +225,7 @@
                     </div>
                 </div>
             </section>
+
             <!-- table view of user's saved workouts -->
             <div style='text-align:center;margin: 50px;'>
 
@@ -248,7 +247,7 @@
                                 <div>
                                     <td>{{ $workout['id'] }}</td>
                                     <td>{{ $workout['name'] }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($workout['created_at'])) }}</td>
+                                    <td>{{ date('F d, Y', strtotime($workout['created_at'])) }}</td>
                                     <td>{{ $workout['body_part_description'] }}</td>
                                 </div>
                             </tr>

@@ -261,7 +261,7 @@ class ExercisesTableSeeder extends Seeder {
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Lower';
+        $exercise->name = 'Machine row';
         $exercise->body_part = 'Back';
         $exercise->set_count = 4;
         $exercise->rep_count = 10;
@@ -409,7 +409,7 @@ class ExercisesTableSeeder extends Seeder {
         $exercise = new Exercise();
         $exercise->created_at = $this->faker->dateTimeThisMonth();
         $exercise->updated_at = $this->faker->dateTimeThisMonth();
-        $exercise->name = 'Barbell';
+        $exercise->name = 'Machine lateral raise';
         $exercise->body_part = 'Shoulders';
         $exercise->set_count = 3;
         $exercise->rep_count = 10;
