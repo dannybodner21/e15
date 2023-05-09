@@ -20,10 +20,12 @@
         @else
             <!-- User is logged in -->
             <section style='padding-top:20px;padding-bottom:50px;' id='results'>
+
                 <!-- Back button -->
                 <div>
                     <a href='/' class='backButton'>&#8592;</a>
                 </div>
+
                 <!-- Show workout -->
                 <div class='container results'>
                     <div class='row'>
@@ -38,14 +40,14 @@
                                         <h6><strong>Create on:</strong> {{ date('F d, Y', strtotime($date)) }}</h6>
                                         <hr>
 
-                                        <!-- show cardio workout if it exists -->
+                                        <!-- Show cardio workout if it exists -->
                                         @if ($cardio == true)
                                             <h6><strong>Cardio:</strong> {{ $cardioType }}</h6>
                                             <h6 class='indentedText'>{{ $cardioExercises }}</h6>
                                             <hr>
                                         @endif
 
-                                        <!-- [ [exercise,sets/reps], [three,four] ] -->
+                                        <!-- [ [exercise,sets/reps], [exercise,sets/reps] ] -->
                                         <h6><strong>Main exercises:</strong></h6>
                                         @foreach ($mainExercisesArray as $exercise)
                                             <h6 class='indentedText'>&#x2022; {{ $exercise[0] }}</h6>
@@ -53,7 +55,7 @@
                                         @endforeach
                                         <hr>
 
-                                        <!-- show cardio workout if it exists -->
+                                        <!-- Show cardio workout if it exists -->
                                         @if ($abs == true)
                                             <h6><strong>Ab workout:</strong></h6>
                                             @foreach ($abExercises as $abExercise)
@@ -67,6 +69,8 @@
                             @endif
                         </div>
                     </div>
+
+                    <!-- Delete workout button -->
                     <div class='row'>
                         <div class='column' style='text-align:center;width:100%;'>
                             <form action='/deleteWorkout/{{ $id }}' method='POST'>

@@ -12,16 +12,15 @@
                 <div class='loginDiv'>
                     <h5 class='header'>Login</h5>
 
+                    <!-- Login form -->
                     <form method='POST' action='/login'>
 
                         {{ csrf_field() }}
 
-                        <!--<label class='formLabel' for='email'>E-Mail Address</label>-->
                         <input id='email' type='email' name='email' value='{{ old('email') }}' autofocus
                             placeholder='Email Address'>
                         @include('includes.error-field', ['fieldName' => 'email'])
 
-                        <!--<label class='formLabel' for='password'>Password</label>-->
                         <input id='password' type='password' name='password' placeholder='Password'>
                         @include('includes.error-field', ['fieldName' => 'password'])
 

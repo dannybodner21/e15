@@ -62,11 +62,9 @@ class IndexPageCest {
         $I->click('[test=saveWorkoutButton]');
 
         // Check if it worked based off of new workout ID
-        // ****** use the clearing out all tables and re seeding to know what the ID should be
         $I->see('1');
     
     }
-
 
     // Try and submit a workout without a name and fail
     public function noNameInForm(AcceptanceTester $I) {

@@ -22,6 +22,7 @@
                     @else
                         <form method='POST' id='logout' action='/logout' class='navBarItem'>
                             {{ csrf_field() }}
+
                             <button type='submit' class='navButton' test='logoutButton'>
                                 Logout
                             </button>

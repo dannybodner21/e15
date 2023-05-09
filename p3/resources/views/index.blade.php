@@ -13,25 +13,26 @@
 
     <body>
 
-        <!-- user is not logged in -->
+        <!-- User is not logged in -->
         @if (!Auth::user())
             <div style='text-align:center;padding-top:50px;'>
                 <h6>Please <a class='customLink' href='/login'>login</a> to create and save workouts!</h6>
             </div>
-            <!-- user is logged in -->
+
+            <!-- User is logged in -->
         @else
             <h5 style='text-align:center;padding-top:30px;'>
                 Welcome, {{ Auth::user()->name }}!
             </h5>
-            <!-- buttons to create workouts -->
+            <!-- Buttons to create workouts -->
             <div class='row' style='margin:auto; width:70%;'>
                 <div class='column' style='text-align:center;width:50%;'>
                     <button class='formButtonTwo customButton' value='showForm' onclick='showForm()'>Create New
                         Workout</button>
                 </div>
                 <div class='column' style='text-align:center;width:50%;'>
-                    <!-- figure out random workout here -->
 
+                    <!-- Random workout button -->
                     <form action='/randomWorkout' method='POST'>
                         {{ csrf_field() }}
                         <button type='submit' class='formButtonTwo customButton' name='random' value='random'
@@ -42,8 +43,10 @@
                 </div>
                 <hr>
             </div>
-            <!-- daily workout form section -->
+
+            <!-- Daily workout form section -->
             <section class='mainFormSection' id='mainFormSection'>
+
                 <!-- Show any errors -->
                 <div class='container' style='padding-top:35px;'>
                     <div class='row'>
@@ -148,8 +151,10 @@
                     </form>
                 </div>
             </section>
+
             <!-- Results from creating a workout -->
             <section id='results'>
+
                 <!-- Show results after form is submitted -->
                 <hr>
                 <div class='container results'>
@@ -170,7 +175,7 @@
                                             <hr>
                                         @endif
 
-                                        <!-- [ [exercise,sets/reps], [three,four] ] -->
+                                        <!-- [ [exercise,sets/reps], [exercise,sets/reps] ] -->
                                         <h6><strong>Main exercises:</strong></h6>
                                         @foreach ($finalExercises as $exercise)
                                             <h6 class='indentedText'>&#x2022; {{ $exercise[0] }}</h6>
@@ -178,7 +183,7 @@
                                         @endforeach
                                         <hr>
 
-                                        <!-- show cardio workout if it exists -->
+                                        <!-- Show cardio workout if it exists -->
                                         @if ($abs == 'true')
                                             <h6><strong>Ab workout:</strong></h6>
                                             @foreach ($randomAbExercises as $abExercise)
@@ -192,21 +197,23 @@
                             @endif
                         </div>
                     </div>
+
+                    <!-- Hidden form data to submit when saving a workout -->
                     <div class='row'>
                         <div class='column'
                             @if ($generatingRandomWorkout == 'false') style='text-align:center;width:50%;' @else style='text-align:center;width:100%;' @endif>
                             <form action='/saveWorkout' method='POST'>
                                 {{ csrf_field() }}
 
-                                <!-- name -->
+                                <!-- Name -->
                                 <input type='hidden' name='name' value='{{ old('name') }}'>
-                                <!-- body parts -->
+                                <!-- Body parts -->
                                 <input type='hidden' name='bodyPartsArray' value='{{ $bodyPartsArray }}'>
-                                <!-- cardio if it exists -->
+                                <!-- Cardio if it exists -->
                                 <input type='hidden' name='cardioString' value='{{ $cardioString }}'>
-                                <!-- main exercises -->
+                                <!-- Main exercises -->
                                 <input type='hidden' name='mainExercisesArray' value='{{ $mainExercisesArray }}'>
-                                <!-- ab exercises if they exist -->
+                                <!-- Ab exercises if they exist -->
                                 <input type='hidden' name='absArray' value='{{ $absArray }}'>
 
                                 <button type='submit' class='resultButton customButton' name='save' value='save'
@@ -214,7 +221,8 @@
                                     Workout</button>
                             </form>
                         </div>
-                        <!-- don't show this button if the user clicked random workout -->
+
+                        <!-- Don't show this button if the user clicked random workout -->
                         @if ($generatingRandomWorkout == 'false')
                             <div class='column' style='text-align:center;width:50%;'>
                                 <button class='resultButton customButton' value='regenerateForm'
@@ -226,12 +234,11 @@
                 </div>
             </section>
 
-            <!-- table view of user's saved workouts -->
+            <!-- Table view of user's saved workouts -->
             <div style='text-align:center;margin: 50px;'>
-
                 <hr>
 
-                <!-- show table if there are saved workouts -->
+                <!-- Show table if there are saved workouts -->
                 @if (count($usersWorkouts) > 0)
                     <h5 style='padding-top:30px;'>Your Saved Workouts:</h5>
                     <table class='workoutsTable'>
@@ -263,6 +270,7 @@
 
     </body>
 
+    <!-- Some small JavaScript to show/hide things at certain times -->
     @if ($generatingWorkout == 'false')
         <script>
             $(document).ready(function() {
@@ -278,7 +286,6 @@
     @endif
 
     <script>
-        // hide some elements on page load
         $(document).ready(function() {
             $('#mainFormSection').hide();
         });
