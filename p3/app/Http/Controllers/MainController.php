@@ -398,66 +398,41 @@ class MainController extends Controller {
             }
         }
 
-
-
-
-
+        // Get array of all the chosen exercises
+        $finalExercises = MainController::pickExercises($randomWorkoutExercises, $numberOfExercises);
         
-
-
-
-
-        // pick the exercises - FUNCTION NOT WORKING FOR WHATEVER REASON ************
-        //pickExercises($randomWorkoutExercises, $numberOfExercises);
-        // results array
-        $finalExercises = [];
-
-
-        // loop through body parts
-        for ($i = 0; $i < count($randomWorkoutExercises); $i++) {
-
-            // get random indexes from the array
-            $randomIndexes = array_rand($randomWorkoutExercises[$i], $numberOfExercises);
-
-            // loop through exercises to get the ones we will include based on indexes chosen
-            for ($j = 0; $j < count($randomIndexes); $j++) {
-                //$randomExercises[$j] = $randomWorkoutExercises[$i][$randomIndexes[$j]];
-                array_push($finalExercises, $randomWorkoutExercises[$i][$randomIndexes[$j]]);
-            }
-        }
-
-        // get array of exercise names(strings) to use for hidden form fields
+        // Get array of exercise names(strings) to use for hidden form fields
         $mainExercisesArray = [];
         for ($i=0;$i<count($finalExercises);$i++) {
             array_push($mainExercisesArray, $finalExercises[$i][0]);
         }
 
-        // choose if including abs or not
+        // Choose if abs will be included or not
         $abs = rand(0, 1);
 
-        // if including abs, get the workout
+        // If including abs, get the workout
         $randomAbExercises = [];
         if ($abs == 1) {
-            // include abs
+
+            // Include abs
             array_push($bodyPartsArray, 'abs');
 
-            // ab exercises
+            // Get all ab exercises
             $abRows = Ab::all()->toArray();
             $abExercises = [];
             for ($i=0;$i<count($abRows);$i++) {
                 $abExercises[$i] = [$abRows[$i]['name'],strval($abRows[$i]['set_count']).' sets of '.strval($abRows[$i]['rep_count']).' reps'];
             }
             
-            // create an ab workout
-            // consisting of 3-6 ab exercises
+            // Create an ab workout consisting of 3-6 ab exercises
 
-            // get random number between 3 and 6 inclusive
+            // Get random number between 3 and 6 inclusive
             $numberOfExercises = rand(3, 6);
 
-            // get random keys from ab exercise array
+            // Get random keys from ab exercise array
             $randomAbExercises = array_rand($abExercises, $numberOfExercises);
         
-            // that will give keys, so now we have to get the values
+            // Get the values
             for ($i = 0; $i < count($randomAbExercises); $i++) {
                 $randomAbExercises[$i] = $abExercises[$randomAbExercises[$i]];
             }
@@ -468,31 +443,30 @@ class MainController extends Controller {
             array_push($absArray, $randomAbExercises[$i][0]);
         }
 
-        // choose if including cardio or not
+        // Choose if cardio will be included or not
         $cardio = rand(0, 1);
 
-        // if including cardio, get the workout
+        // If including cardio, get the workout
         $randomCardioExercise = '';
         $cardioArray = [];
         if ($cardio == 1) {
 
-            // include cardio
+            // Include cardio
             $cardioOptions = ['run','swim','stairmaster','bike','row'];
             $randomIndex = array_rand($cardioOptions, 1);
             $cardioChoice = $cardioOptions[$randomIndex];
 
-            
-            // get array of chosen cardio exercises
+            // Get array of chosen cardio exercises
             $cardioRows = Cardio_Exercise::where('type','=',$cardioChoice)->get()->toArray();
             for($i=0;$i<count($cardioRows);$i++) {
                 $cardioArray[$i] = $cardioRows[$i]['exercise'];
             }
 
-            // add cardio type to body parts
+            // Add cardio type to body parts
             array_push($bodyPartsArray, $cardioChoice);
             $cardio = $cardioChoice;
 
-            // take the array of chosen cardio exercises and pick a random one
+            // Take the array of chosen cardio exercises and pick a random one
             $randomCardioIndex = rand(0, count($cardioArray));
             $randomCardioExercise = $cardioArray[$randomCardioIndex];
             
@@ -501,7 +475,7 @@ class MainController extends Controller {
         }
         $cardioString = $randomCardioExercise;
 
-        // get logged in user's workouts
+        // Get logged in user's workouts
         $usersWorkouts  = $request->user()->workouts->toArray();
 
         // Redirect with variables
@@ -529,12 +503,13 @@ class MainController extends Controller {
         ]);
     }
     
-
     public function saveWorkout(Request $request) {
-       
-        // get data
+
+        // Create random workout name if necessary
         $randomName = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz-:,'),0,8);
         $randomName = 'Random Workout: '.$randomName;
+
+        // Get data
         $name = $request->input('name');
         if ($name == null) {
             $name = $randomName;
@@ -544,53 +519,54 @@ class MainController extends Controller {
         $mainExercisesArray = explode(',', $request->input('mainExercisesArray'));
         $absArray = explode(',', $request->input('absArray'));
 
-        // instantiate a new Workout Model object
+        // Instantiate a new Workout Model object
         $workout = new Workout();
 
-        // name
+        // Name
         $workout->name = $name;
 
-        // body part description
+        // Body part description
         $workout->body_part_description = $bodyPartDescription;
 
-        // workout to user, one to many
+        // Workout to user, one to many
         $user = auth()->user();
         $workout->user()->associate($user);
 
-        // workout to cardio_exercise, one to many, nullable
+        // Workout to cardio_exercise, one to many, nullable
         if ($cardioString != '') {
-            // get cardio exercise from database
+
+            // Get cardio exercise from database
             $cardio_exercise = Cardio_Exercise::where('exercise', '=', $cardioString)->first();
             $workout->cardio_exercise()->associate($cardio_exercise);
         }
 
-        // save workout
+        // Save workout
         $workout->save();
 
-        // add all the exercises (many to many)
-        // main exercises
+        // Add all the exercises (many to many)
+        // Main exercises
         for ($i=0;$i<count($mainExercisesArray);$i++) {
-            // get exercise from database
+
+            // Get exercise from database
             $exercise = Exercise::where('name', '=', $mainExercisesArray[$i])->first();
 
-            // connect workout and exercise
-            //if ($exercise) {
-                //$workout->exercises()->save($exercise);
-            //}
+            // Connect workout and exercise
             $workout->exercises()->save($exercise);
         }
 
-        // add all the ab exercises (many to many)
+        // Add all the ab exercises (many to many)
         if ($absArray[0] != '') {
             for ($i=0;$i<count($absArray);$i++) {
-                // get exercise from database
+
+                // Get exercise from database
                 $abExercise = Ab::where('name', '=', $absArray[$i])->first();
-                // connect workout and exercise
+
+                // Connect workout and exercise
                 $workout->abs()->save($abExercise);
             }
         }
 
-        // get logged in user's workouts
+        // Get logged in user's workouts
         $usersWorkouts  = $request->user()->workouts->toArray();
 
         return redirect('/')->with([
@@ -617,7 +593,6 @@ class MainController extends Controller {
         ]);   
     }
 
-
     public function showWorkout(Request $request) {
        
         // Get workout id
@@ -634,13 +609,14 @@ class MainController extends Controller {
 
         // Created on date
         $date = $workout->created_at;
-        $date = date('d-m-Y', strtotime($date));
+        $date = date('F d, Y', strtotime($date));
 
         // See if we have cardio
         $cardio = false;
         $cardioType = '';
         $cardioExercises = $workout->cardio_exercise->exercise;
         if ($cardioExercises != null) {
+
             // We have cardio
             $cardio = true;
 
@@ -648,29 +624,29 @@ class MainController extends Controller {
             $cardioType = Cardio_Exercise::where('exercise', '=', $cardioExercises)->first()->type;
         }
 
-        // all the main exercises [ [one,two], [three,four] ]
-
+        // Main exercises
         $workoutExercises = $workout->exercises->toArray();
         $mainExercisesArray = [];
         for($i=0;$i<count($workoutExercises);$i++) {
             $mainExercisesArray[$i] = [$workoutExercises[$i]['name'],strval($workoutExercises[$i]['set_count']).' sets of '.strval($workoutExercises[$i]['rep_count']).' reps'];
         }
 
-        // abs as true or false
+        // Abs as true or false
         $abs = false;
         $abExercisesArray = [];
         if (count($workout->abs->toArray()) > 0) {
-            // we have an ab workout
+
+            // We have an ab workout
             $abs = true;
 
-            // get ab workout
+            // Get ab workout
             $abExercises = $workout->abs->toArray();
             for($i=0;$i<count($abExercises);$i++) {
                 $abExercisesArray[$i] = [$abExercises[$i]['name'],strval($abExercises[$i]['set_count']).' sets of '.strval($abExercises[$i]['rep_count']).' reps'];
             }
         }
     
-
+        // Return
         return view('showWorkout', [
             'title' => 'P3',
             'id' => $id,
@@ -684,40 +660,32 @@ class MainController extends Controller {
             'abs' => $abs,
             'abExercises' => $abExercisesArray,
         ]);
-        
-
-        
     }
 
     public function deleteWorkout(Request $request) {
 
-        // workouts have many to many with exercises, and abs 
-        // workouts have one to many with users, and cardio
+        // Workouts have many to many with exercises, and abs 
+        // Workouts have one to many with users, and cardio
        
-        // get id of workout to delete
+        // Get id of workout to delete
         $id = $request->route('id');
 
-        // query the workout from database
+        // Query the workout from database
         $workout = Workout::where('id', '=', $id)->first();
-
-        // disconnent many to many relationships
-        //$workout->pivot->delete();
         
+        // Detach
         $workout->exercises()->detach();
         $workout->abs()->detach();
 
-        // detach relationships
-        //$workout->users()->detach();
-        //$workout->cardio_exercises()->detach();
-
-        // delete the workout
+        // Delete the workout
         if ($workout) {
             $workout->delete();
         }
 
-        // get logged in user's workouts
+        // Get logged in user's workouts
         $usersWorkouts  = $request->user()->workouts->toArray();
 
+        // Return
         return redirect('/')->with([
             'name' => null,
             'bodyParts' => null,
