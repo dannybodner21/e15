@@ -58,7 +58,7 @@ root@hes:/var/www/e15/p3/tests/codeception# codecept run acceptance --steps
 Codeception PHP Testing Framework v4.2.2 https://helpukrainewin.org
 Powered by PHPUnit 8.5.28 #StandWithUkraine
 
-Acceptance Tests (6) --------------------------------------------------------------------------------------------------------------------
+Acceptance Tests (6) ------------------------------------------------------------------------------------------------------------------------
 IndexPageCest: Create new workout
 Signature: IndexPageCest:createNewWorkout
 Test: tests/acceptance/IndexPageCest.php:createNewWorkout
@@ -89,7 +89,6 @@ Scenario --
  I click "[test=generateRandomWorkoutButton]"
  I see "Random Workout"
  I click "[test=saveWorkoutButton]"
- I see "1"
  PASSED 
 
 IndexPageCest: No name in form
@@ -148,22 +147,11 @@ Scenario --
  I see "Logout","nav"
  PASSED 
 
------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Time: 24.87 seconds, Memory: 18.66 MB
+Time: 16.98 seconds, Memory: 18.66 MB
 
-OK (6 tests, 17 assertions)
+OK (6 tests, 16 assertions)
 root@hes:/var/www/e15/p3/tests/codeception# 
 ```
-
-
-
-
-
-
-
-
-
-
-

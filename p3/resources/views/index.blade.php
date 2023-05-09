@@ -183,7 +183,7 @@
                                         @endforeach
                                         <hr>
 
-                                        <!-- Show cardio workout if it exists -->
+                                        <!-- Show ab workout if it exists -->
                                         @if ($abs == 'true')
                                             <h6><strong>Ab workout:</strong></h6>
                                             @foreach ($randomAbExercises as $abExercise)
@@ -243,7 +243,6 @@
                     <h5 style='padding-top:30px;'>Your Saved Workouts:</h5>
                     <table class='workoutsTable'>
                         <tr class='tableHeader'>
-                            <th class='headerItem'>ID</th>
                             <th class='headerItem'>Workout Name</th>
                             <th class='headerItem'>Created On</th>
                             <th class='headerItem'>Body Parts</th>
@@ -252,7 +251,6 @@
                         @foreach ($usersWorkouts as $workout)
                             <tr class='customTableRow' onclick="location.href='/workout/{{ $workout['id'] }}';">
                                 <div>
-                                    <td>{{ $workout['id'] }}</td>
                                     <td>{{ $workout['name'] }}</td>
                                     <td>{{ date('F d, Y', strtotime($workout['created_at'])) }}</td>
                                     <td>{{ $workout['body_part_description'] }}</td>
